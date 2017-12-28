@@ -1,0 +1,26 @@
+
+ //mg.js
+//$(".mg_a").click(function(){$(".mg_dd").show()});
+//$(".mg_a").click(function(){$(".mg_pp").hide()});
+//$(".pp_a").click(function(){$(".mg_pp").hide()});
+//$(".pp_a").click(function(){$(".mg_dd").show()});
+ 
+$('ul.yl_chose').on('click','li',function(){
+	
+	console.log($(this));
+	console.log($(this).html());
+	if($(this).html()=='1'){ //如果点击的当前li的内容为 办理指南  则模态框里 添加办理指南的内容（即将办理指南的内容显示==》将其no-see类去掉  办理进度的内容隐藏==》加上no-see类）
+		
+			if($(".mg_dd").hasClass("no-see")){ //如果办理指南有no-see类
+			$(".mg_dd").removeClass("no-see"); //就去掉
+			$(".mg_pp").addClass("no-see"); //办理进度 加上no-see类
+		}
+
+	}else if($(this).html()=='2'){//如果点击的当前li的内容为 办理进度  则模态框里 添加办理进度的内容  同理
+		
+		if($(".mg_pp").hasClass("no-see")){ //如果办理指南有no-see类
+			$(".mg_pp").removeClass("no-see"); //就去掉
+			$(".mg_dd").addClass("no-see"); //办理进度 加上no-see类
+		}
+	}
+});

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZOperatorBusinessChangeDao">
+    
+	<sql id="zOperatorBusinessChangeColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.num AS "num",
+		a.ori_vehicle_num AS "oriVehicleNum",
+		a.new_vehicle_num AS "newVehicleNum",
+		a.name AS "name",
+		a.id_card AS "idCard",
+		a.allowed_drive_model AS "allowedDriveModel",
+		a.initial_date AS "initialDate",
+		a.qua_cert_num AS "quaCertNum",
+		a.qua_cert_initial_date AS "quaCertInitialDate",
+		a.phone_num AS "phoneNum",
+		a.address AS "address",
+		a.boarding_time AS "boardingTime",
+		a.query_code AS "queryCode",
+		a.step AS "step"
+	</sql>
+	
+	<sql id="zOperatorBusinessChangeJoins">
+	</sql>
+    
+	<select id="get" resultType="ZOperatorBusinessChange">
+		SELECT 
+			<include refid="zOperatorBusinessChangeColumns"/>
+		FROM z_operator_business_change a
+		<include refid="zOperatorBusinessChangeJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZOperatorBusinessChange">
+		SELECT 
+			<include refid="zOperatorBusinessChangeColumns"/>
+		FROM z_operator_business_change a
+		<include refid="zOperatorBusinessChangeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="num != null and num != ''">
+				AND a.num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{num}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{num}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{num},'%')</if>
+			</if>
+			<if test="oriVehicleNum != null and oriVehicleNum != ''">
+				AND a.ori_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oriVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oriVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oriVehicleNum},'%')</if>
+			</if>
+			<if test="newVehicleNum != null and newVehicleNum != ''">
+				AND a.new_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{newVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{newVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{newVehicleNum},'%')</if>
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="phoneNum != null and phoneNum != ''">
+				AND a.phone_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{phoneNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{phoneNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{phoneNum},'%')</if>
+			</if>
+			<if test="beginBoardingTime != null and endBoardingTime != null and beginBoardingTime != '' and endBoardingTime != ''">
+				AND a.boarding_time BETWEEN #{beginBoardingTime} AND #{endBoardingTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZOperatorBusinessChange">
+		SELECT 
+			<include refid="zOperatorBusinessChangeColumns"/>
+		FROM z_operator_business_change a
+		<include refid="zOperatorBusinessChangeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_operator_business_change(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			num,
+			ori_vehicle_num,
+			new_vehicle_num,
+			name,
+			id_card,
+			allowed_drive_model,
+			initial_date,
+			qua_cert_num,
+			qua_cert_initial_date,
+			phone_num,
+			address,
+			boarding_time,
+			query_code,
+			step
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{num},
+			#{oriVehicleNum},
+			#{newVehicleNum},
+			#{name},
+			#{idCard},
+			#{allowedDriveModel},
+			#{initialDate},
+			#{quaCertNum},
+			#{quaCertInitialDate},
+			#{phoneNum},
+			#{address},
+			#{boardingTime},
+			#{queryCode},
+			#{step}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_operator_business_change SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			num = #{num},
+			ori_vehicle_num = #{oriVehicleNum},
+			new_vehicle_num = #{newVehicleNum},
+			name = #{name},
+			id_card = #{idCard},
+			allowed_drive_model = #{allowedDriveModel},
+			initial_date = #{initialDate},
+			qua_cert_num = #{quaCertNum},
+			qua_cert_initial_date = #{quaCertInitialDate},
+			phone_num = #{phoneNum},
+			address = #{address},
+			boarding_time = #{boardingTime},
+			query_code = #{queryCode},
+			step = #{step}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_operator_business_change SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

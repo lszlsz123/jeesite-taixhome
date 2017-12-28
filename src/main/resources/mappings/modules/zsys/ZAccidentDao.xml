@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZAccidentDao">
+    
+	<sql id="zAccidentColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.acc_time AS "accTime",
+		a.acc_address AS "accAddress",
+		a.resp_situation AS "respSituation",
+		a.level AS "level",
+		a.acc_reason_type AS "accReasonType",
+		a.vehicle_insurance_company AS "vehicleInsuranceCompany",
+		a.estimation_amount AS "estimationAmount",
+		a.injured_count AS "injuredCount",
+		a.death_count AS "deathCount",
+		a.case_progress AS "caseProgress",
+		a.claim_amount AS "claimAmount",
+		a.close_date AS "closeDate",
+		a.mark AS "mark",
+		a.acc_vehcile_num AS "accVehcileNum",
+		a.driver_name AS "driverName",
+		a.accident_num AS "accidentNum",
+		a.self_num AS "selfNum",
+		a.driver_license AS "driverLicense",
+		a.query_code AS "queryCode"
+	</sql>
+	
+	<sql id="zAccidentJoins">
+	</sql>
+    
+	<select id="get" resultType="ZAccident">
+		SELECT 
+			<include refid="zAccidentColumns"/>
+		FROM z_accident a
+		<include refid="zAccidentJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZAccident">
+		SELECT 
+			<include refid="zAccidentColumns"/>
+		FROM z_accident a
+		<include refid="zAccidentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="beginAccTime != null and endAccTime != null and beginAccTime != '' and endAccTime != ''">
+				AND a.acc_time BETWEEN #{beginAccTime} AND #{endAccTime}
+			</if>
+			<if test="level != null and level != ''">
+				AND a.level = #{level}
+			</if>
+			<if test="vehicleInsuranceCompany != null and vehicleInsuranceCompany != ''">
+				AND a.vehicle_insurance_company = #{vehicleInsuranceCompany}
+			</if>
+			<if test="estimationAmount != null and estimationAmount != ''">
+				AND a.estimation_amount = #{estimationAmount}
+			</if>
+			<if test="beginCloseDate != null and endCloseDate != null and beginCloseDate != '' and endCloseDate != ''">
+				AND a.close_date BETWEEN #{beginCloseDate} AND #{endCloseDate}
+			</if>
+			<if test="accVehcileNum != null and accVehcileNum != ''">
+				AND a.acc_vehcile_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{accVehcileNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{accVehcileNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{accVehcileNum},'%')</if>
+			</if>
+			<if test="driverName != null and driverName != ''">
+				AND a.driver_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{driverName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{driverName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{driverName},'%')</if>
+			</if>
+			<if test="accidentNum != null and accidentNum != ''">
+				AND a.accident_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{accidentNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{accidentNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{accidentNum},'%')</if>
+			</if>
+			<if test="driverLicense != null and driverLicense != ''">
+				AND a.driver_license = #{driverLicense}
+			</if>
+			<if test="queryCode != null and queryCode != ''">
+				AND a.query_code = #{queryCode}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZAccident">
+		SELECT 
+			<include refid="zAccidentColumns"/>
+		FROM z_accident a
+		<include refid="zAccidentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_accident(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			acc_time,
+			acc_address,
+			resp_situation,
+			level,
+			acc_reason_type,
+			vehicle_insurance_company,
+			estimation_amount,
+			injured_count,
+			death_count,
+			case_progress,
+			claim_amount,
+			close_date,
+			mark,
+			acc_vehcile_num,
+			driver_name,
+			accident_num,
+			self_num,
+			driver_license,
+			query_code
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{accTime},
+			#{accAddress},
+			#{respSituation},
+			#{level},
+			#{accReasonType},
+			#{vehicleInsuranceCompany},
+			#{estimationAmount},
+			#{injuredCount},
+			#{deathCount},
+			#{caseProgress},
+			#{claimAmount},
+			#{closeDate},
+			#{mark},
+			#{accVehcileNum},
+			#{driverName},
+			#{accidentNum},
+			#{selfNum},
+			#{driverLicense},
+			#{queryCode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_accident SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			acc_time = #{accTime},
+			acc_address = #{accAddress},
+			resp_situation = #{respSituation},
+			level = #{level},
+			acc_reason_type = #{accReasonType},
+			vehicle_insurance_company = #{vehicleInsuranceCompany},
+			estimation_amount = #{estimationAmount},
+			injured_count = #{injuredCount},
+			death_count = #{deathCount},
+			case_progress = #{caseProgress},
+			claim_amount = #{claimAmount},
+			close_date = #{closeDate},
+			mark = #{mark},
+			acc_vehcile_num = #{accVehcileNum},
+			driver_name = #{driverName},
+			accident_num = #{accidentNum},
+			self_num = #{selfNum},
+			driver_license = #{driverLicense},
+			query_code = #{queryCode}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_accident SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

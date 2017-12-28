@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>frontcontroller</name>
+	<filePath>src/main/java/${packageName}/cms/web/front/${subModuleName}</filePath>
+	<fileName>${ClassName}FrontController.java</fileName>
+	<content><![CDATA[
+/**
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ */
+package ${packageName}.cms.web.front<#if subModuleName != "">.${subModuleName}</#if>;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import ${packageName}.${moduleName}.entity<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
+import ${packageName}.${moduleName}.service<#if subModuleName != "">.${subModuleName}</#if>.${ClassName}Service;
+
+/**
+ * ${functionName}Controller
+ * @author ${functionAuthor}
+ * @version ${functionVersion}
+ */
+@Controller
+@RequestMapping(value = "${r"${frontPath}"}/${urlPrefix}")
+public class ${ClassName}FrontController extends BaseController {
+
+	@Autowired
+	private ${ClassName}Service ${className}Service;
+	
+	@ModelAttribute
+	public ${ClassName} get(@RequestParam(required=false) String id) {
+		${ClassName} entity = null;
+		if (StringUtils.isNotBlank(id)){
+			entity = ${className}Service.get(id);
+		}
+		if (entity == null){
+			entity = new ${ClassName}();
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = {"list", ""})
+	public String list(${ClassName} ${className}, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<${ClassName}> page = ${className}Service.findPage(new Page<${ClassName}>(request, response), ${className}); 
+		model.addAttribute("page", page);
+		model.addAttribute("${className}", ${className});
+		
+		return "modules/cms/front/themes/taixhome/actionPage/${viewPrefix}List";
+	}
+
+	@RequestMapping(value = "formDetail")
+	public String formDetail(${ClassName} ${className}, HttpServletRequest request, HttpServletResponse response, Model model) {
+		${className} = get(${className}.getId());
+		model.addAttribute("${className}", ${className});
+		return "modules/cms/front/themes/taixhome/actionPage/${viewPrefix}Form";
+	}
+
+}]]>
+	</content>
+</template>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zprocess.dao.ZProcessLinkDao">
+    
+	<sql id="zProcessLinkColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.start_node AS "startNode",
+		a.end_node AS "endNode",
+		a.start_name AS "startName",
+		a.end_name AS "endName",
+		a.process_id AS "processId",
+		a.process_name AS "processName"
+	</sql>
+	
+	<sql id="zProcessLinkJoins">
+	</sql>
+    
+	<select id="get" resultType="ZProcessLink">
+		SELECT 
+			<include refid="zProcessLinkColumns"/>
+		FROM z_process_link a
+		<include refid="zProcessLinkJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZProcessLink">
+		SELECT 
+			<include refid="zProcessLinkColumns"/>
+		FROM z_process_link a
+		<include refid="zProcessLinkJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="startNode != null and startNode != ''">
+				AND a.start_node = #{startNode}
+			</if>
+			<if test="startName != null and startName != ''">
+				AND a.start_name = #{startName}
+			</if>
+			<if test="endNode != null and endNode != ''">
+				AND a.end_node = #{endNode}
+			</if>
+			<if test="endName != null and endName != ''">
+				AND a.end_name = #{endName}
+			</if>
+			<if test="processId != null and processId != ''">
+				AND a.process_id = #{processId}
+			</if>
+			<if test="processName != null and processName != ''">
+				AND a.process_name = #{processName}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZProcessLink">
+		SELECT 
+			<include refid="zProcessLinkColumns"/>
+		FROM z_process_link a
+		<include refid="zProcessLinkJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_process_link(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			start_node,
+			end_node,
+			start_name,
+			end_name,
+			process_id,
+			process_name
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{startNode},
+			#{endNode},
+			#{startName},
+			#{endName},
+			#{processId},
+			#{processName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_process_link SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			start_node = #{startNode},
+			end_node = #{endNode},
+			start_name = #{startName},
+			end_name = #{endName},
+			process_id = #{processId},
+			process_name = #{processName}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_process_link SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

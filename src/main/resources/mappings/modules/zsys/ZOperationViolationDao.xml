@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZOperationViolationDao">
+    
+	<sql id="zOperationViolationColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.complaint_time AS "complaintTime",
+		a.complaint_type AS "complaintType",
+		a.complaint_person AS "complaintPerson",
+		a.complaint_phone_num AS "complaintPhoneNum",
+		a.operator AS "operator",
+		a.operator_phone_num AS "operatorPhoneNum",
+		a.driver AS "driver",
+		a.driver_phone_num AS "driverPhoneNum",
+		a.vehicle_num AS "vehicleNum",
+		a.procedure_content AS "procedureContent",
+		a.result AS "result",
+		a.processing_person AS "processingPerson"
+	</sql>
+	
+	<sql id="zOperationViolationJoins">
+	</sql>
+    
+	<select id="get" resultType="ZOperationViolation">
+		SELECT 
+			<include refid="zOperationViolationColumns"/>
+		FROM z_operation_violation a
+		<include refid="zOperationViolationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZOperationViolation">
+		SELECT 
+			<include refid="zOperationViolationColumns"/>
+		FROM z_operation_violation a
+		<include refid="zOperationViolationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="beginComplaintTime != null and endComplaintTime != null and beginComplaintTime != '' and endComplaintTime != ''">
+				AND a.complaint_time BETWEEN #{beginComplaintTime} AND #{endComplaintTime}
+			</if>
+			<if test="complaintType != null and complaintType != ''">
+				AND a.complaint_type = #{complaintType}
+			</if>
+			<if test="complaintPerson != null and complaintPerson != ''">
+				AND a.complaint_person LIKE 
+					<if test="dbName == 'oracle'">'%'||#{complaintPerson}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{complaintPerson}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{complaintPerson},'%')</if>
+			</if>
+			<if test="complaintPhoneNum != null and complaintPhoneNum != ''">
+				AND a.complaint_phone_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{complaintPhoneNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{complaintPhoneNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{complaintPhoneNum},'%')</if>
+			</if>
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="processingPerson != null and processingPerson != ''">
+				AND a.processing_person LIKE 
+					<if test="dbName == 'oracle'">'%'||#{processingPerson}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{processingPerson}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{processingPerson},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZOperationViolation">
+		SELECT 
+			<include refid="zOperationViolationColumns"/>
+		FROM z_operation_violation a
+		<include refid="zOperationViolationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_operation_violation(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			complaint_time,
+			complaint_type,
+			complaint_person,
+			complaint_phone_num,
+			operator,
+			operator_phone_num,
+			driver,
+			driver_phone_num,
+			vehicle_num,
+			procedure_content,
+			result,
+			processing_person
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{complaintTime},
+			#{complaintType},
+			#{complaintPerson},
+			#{complaintPhoneNum},
+			#{operator},
+			#{operatorPhoneNum},
+			#{driver},
+			#{driverPhoneNum},
+			#{vehicleNum},
+			#{procedureContent},
+			#{result},
+			#{processingPerson}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_operation_violation SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			complaint_time = #{complaintTime},
+			complaint_type = #{complaintType},
+			complaint_person = #{complaintPerson},
+			complaint_phone_num = #{complaintPhoneNum},
+			operator = #{operator},
+			operator_phone_num = #{operatorPhoneNum},
+			driver = #{driver},
+			driver_phone_num = #{driverPhoneNum},
+			vehicle_num = #{vehicleNum},
+			procedure_content = #{procedureContent},
+			result = #{result},
+			processing_person = #{processingPerson}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_operation_violation SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

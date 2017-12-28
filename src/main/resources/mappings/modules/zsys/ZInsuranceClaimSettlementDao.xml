@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZInsuranceClaimSettlementDao">
+    
+	<sql id="zInsuranceClaimSettlementColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.acc_num AS "accNum",
+		a.self_num AS "selfNum",
+		a.vehicle_num AS "vehicleNum",
+		a.acc_time AS "accTime",
+		a.individual_vehicle_operator AS "individualVehicleOperator",
+		a.accident_address AS "accidentAddress",
+		a.resp_situation AS "respSituation",
+		a.acc_driver AS "accDriver",
+		a.acc_reason AS "accReason",
+		a.vehicle_indemnity AS "vehicleIndemnity",
+		a.human_injury_indemnity AS "humanInjuryIndemnity",
+		a.loss_indemnity AS "lossIndemnity",
+		a.third_party_vehicle_indemnity AS "thirdPartyVehicleIndemnity",
+		a.third_party_human_injury_indemnity AS "thirdPartyHumanInjuryIndemnity",
+		a.carrier_insurance_indemnity AS "carrierInsuranceIndemnity",
+		a.total_amount AS "totalAmount",
+		a.closing_date AS "closingDate",
+		a.company_realse_time AS "companyRealseTime",
+		a.mark AS "mark",
+		a.driver_license AS "driverLicense",
+		a.query_code AS "queryCode"
+	</sql>
+	
+	<sql id="zInsuranceClaimSettlementJoins">
+	</sql>
+    
+	<select id="get" resultType="ZInsuranceClaimSettlement">
+		SELECT 
+			<include refid="zInsuranceClaimSettlementColumns"/>
+		FROM z_insurance_claim_settlement a
+		<include refid="zInsuranceClaimSettlementJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZInsuranceClaimSettlement">
+		SELECT 
+			<include refid="zInsuranceClaimSettlementColumns"/>
+		FROM z_insurance_claim_settlement a
+		<include refid="zInsuranceClaimSettlementJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="accNum != null and accNum != ''">
+				AND a.acc_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{accNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{accNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{accNum},'%')</if>
+			</if>
+			<if test="selfNum != null and selfNum != ''">
+				AND a.self_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{selfNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{selfNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{selfNum},'%')</if>
+			</if>
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="beginAccTime != null and endAccTime != null and beginAccTime != '' and endAccTime != ''">
+				AND a.acc_time BETWEEN #{beginAccTime} AND #{endAccTime}
+			</if>
+			<if test="beginClosingDate != null and endClosingDate != null and beginClosingDate != '' and endClosingDate != ''">
+				AND a.closing_date BETWEEN #{beginClosingDate} AND #{endClosingDate}
+			</if>
+			<if test="driverLicense != null and driverLicense != ''">
+				AND a.driver_license LIKE 
+					<if test="dbName == 'oracle'">'%'||#{driverLicense}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{driverLicense}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{driverLicense},'%')</if>
+			</if>
+			<if test="queryCode != null and queryCode != ''">
+				AND a.query_code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{queryCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{queryCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{queryCode},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZInsuranceClaimSettlement">
+		SELECT 
+			<include refid="zInsuranceClaimSettlementColumns"/>
+		FROM z_insurance_claim_settlement a
+		<include refid="zInsuranceClaimSettlementJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_insurance_claim_settlement(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			acc_num,
+			self_num,
+			vehicle_num,
+			acc_time,
+			individual_vehicle_operator,
+			accident_address,
+			resp_situation,
+			acc_driver,
+			acc_reason,
+			vehicle_indemnity,
+			human_injury_indemnity,
+			loss_indemnity,
+			third_party_vehicle_indemnity,
+			third_party_human_injury_indemnity,
+			carrier_insurance_indemnity,
+			total_amount,
+			closing_date,
+			company_realse_time,
+			mark,
+			driver_license,
+			query_code
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{accNum},
+			#{selfNum},
+			#{vehicleNum},
+			#{accTime},
+			#{individualVehicleOperator},
+			#{accidentAddress},
+			#{respSituation},
+			#{accDriver},
+			#{accReason},
+			#{vehicleIndemnity},
+			#{humanInjuryIndemnity},
+			#{lossIndemnity},
+			#{thirdPartyVehicleIndemnity},
+			#{thirdPartyHumanInjuryIndemnity},
+			#{carrierInsuranceIndemnity},
+			#{totalAmount},
+			#{closingDate},
+			#{companyRealseTime},
+			#{mark},
+			#{driverLicense},
+			#{queryCode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_insurance_claim_settlement SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			acc_num = #{accNum},
+			self_num = #{selfNum},
+			vehicle_num = #{vehicleNum},
+			acc_time = #{accTime},
+			individual_vehicle_operator = #{individualVehicleOperator},
+			accident_address = #{accidentAddress},
+			resp_situation = #{respSituation},
+			acc_driver = #{accDriver},
+			acc_reason = #{accReason},
+			vehicle_indemnity = #{vehicleIndemnity},
+			human_injury_indemnity = #{humanInjuryIndemnity},
+			loss_indemnity = #{lossIndemnity},
+			third_party_vehicle_indemnity = #{thirdPartyVehicleIndemnity},
+			third_party_human_injury_indemnity = #{thirdPartyHumanInjuryIndemnity},
+			carrier_insurance_indemnity = #{carrierInsuranceIndemnity},
+			total_amount = #{totalAmount},
+			closing_date = #{closingDate},
+			company_realse_time = #{companyRealseTime},
+			mark = #{mark},
+			driver_license = #{driverLicense},
+			query_code = #{queryCode}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_insurance_claim_settlement SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

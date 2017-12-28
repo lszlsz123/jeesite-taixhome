@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZLitigationDao">
+    
+	<sql id="zLitigationColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.vehicle_num AS "vehicleNum",
+		a.acc_time AS "accTime",
+		a.lit_cause AS "litCause",
+		a.lit_time AS "litTime",
+		a.lit_target AS "litTarget",
+		a.judgment_amount AS "judgmentAmount",
+		a.insurance_company AS "insuranceCompany",
+		a.insurance_payment AS "insurancePayment",
+		a.operator_payment AS "operatorPayment",
+		a.close_time AS "closeTime",
+		a.court AS "court",
+		a.mark AS "mark",
+		a.driver_license AS "driverLicense",
+		a.query_code AS "queryCode"
+	</sql>
+	
+	<sql id="zLitigationJoins">
+	</sql>
+    
+	<select id="get" resultType="ZLitigation">
+		SELECT 
+			<include refid="zLitigationColumns"/>
+		FROM z_litigation a
+		<include refid="zLitigationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZLitigation">
+		SELECT 
+			<include refid="zLitigationColumns"/>
+		FROM z_litigation a
+		<include refid="zLitigationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="beginAccTime != null and endAccTime != null and beginAccTime != '' and endAccTime != ''">
+				AND a.acc_time BETWEEN #{beginAccTime} AND #{endAccTime}
+			</if>
+			<if test="beginLitTime != null and endLitTime != null and beginLitTime != '' and endLitTime != ''">
+				AND a.lit_time BETWEEN #{beginLitTime} AND #{endLitTime}
+			</if>
+			<if test="driverLicense != null and driverLicense != ''">
+				AND a.driver_license LIKE 
+					<if test="dbName == 'oracle'">'%'||#{driverLicense}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{driverLicense}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{driverLicense},'%')</if>
+			</if>
+			<if test="queryCode != null and queryCode != ''">
+				AND a.query_code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{queryCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{queryCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{queryCode},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZLitigation">
+		SELECT 
+			<include refid="zLitigationColumns"/>
+		FROM z_litigation a
+		<include refid="zLitigationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_litigation(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			vehicle_num,
+			acc_time,
+			lit_cause,
+			lit_time,
+			lit_target,
+			judgment_amount,
+			insurance_company,
+			insurance_payment,
+			operator_payment,
+			close_time,
+			court,
+			mark,
+			driver_license,
+			query_code
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{vehicleNum},
+			#{accTime},
+			#{litCause},
+			#{litTime},
+			#{litTarget},
+			#{judgmentAmount},
+			#{insuranceCompany},
+			#{insurancePayment},
+			#{operatorPayment},
+			#{closeTime},
+			#{court},
+			#{mark},
+			#{driverLicense},
+			#{queryCode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_litigation SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			vehicle_num = #{vehicleNum},
+			acc_time = #{accTime},
+			lit_cause = #{litCause},
+			lit_time = #{litTime},
+			lit_target = #{litTarget},
+			judgment_amount = #{judgmentAmount},
+			insurance_company = #{insuranceCompany},
+			insurance_payment = #{insurancePayment},
+			operator_payment = #{operatorPayment},
+			close_time = #{closeTime},
+			court = #{court},
+			mark = #{mark},
+			driver_license = #{driverLicense},
+			query_code = #{queryCode}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_litigation SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZMaintenanceRecordDao">
+    
+	<sql id="zMaintenanceRecordColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.self_num AS "selfNum",
+		a.vehicle_num AS "vehicleNum",
+		a.operator AS "operator",
+		a.first_quarter AS "firstQuarter",
+		a.second_quarter AS "secondQuarter",
+		a.third_quarter AS "thirdQuarter",
+		a.fourth_quarter AS "fourthQuarter",
+		a.inspection_time AS "inspectionTime",
+		a.mark AS "mark",
+		a.driver_license AS "driverLicense",
+		a.query_code AS "queryCode"
+	</sql>
+	
+	<sql id="zMaintenanceRecordJoins">
+	</sql>
+    
+	<select id="get" resultType="ZMaintenanceRecord">
+		SELECT 
+			<include refid="zMaintenanceRecordColumns"/>
+		FROM z_maintenance_record a
+		<include refid="zMaintenanceRecordJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZMaintenanceRecord">
+		SELECT 
+			<include refid="zMaintenanceRecordColumns"/>
+		FROM z_maintenance_record a
+		<include refid="zMaintenanceRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="selfNum != null and selfNum != ''">
+				AND a.self_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{selfNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{selfNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{selfNum},'%')</if>
+			</if>
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="beginInspectionTime != null and endInspectionTime != null and beginInspectionTime != '' and endInspectionTime != ''">
+				AND a.inspection_time BETWEEN #{beginInspectionTime} AND #{endInspectionTime}
+			</if>
+			<if test="driverLicense != null and driverLicense != ''">
+				AND a.driver_license LIKE 
+					<if test="dbName == 'oracle'">'%'||#{driverLicense}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{driverLicense}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{driverLicense},'%')</if>
+			</if>
+			<if test="queryCode != null and queryCode != ''">
+				AND a.query_code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{queryCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{queryCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{queryCode},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZMaintenanceRecord">
+		SELECT 
+			<include refid="zMaintenanceRecordColumns"/>
+		FROM z_maintenance_record a
+		<include refid="zMaintenanceRecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_maintenance_record(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			self_num,
+			vehicle_num,
+			operator,
+			first_quarter,
+			second_quarter,
+			third_quarter,
+			fourth_quarter,
+			inspection_time,
+			mark,
+			driver_license,
+			query_code
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{selfNum},
+			#{vehicleNum},
+			#{operator},
+			#{firstQuarter},
+			#{secondQuarter},
+			#{thirdQuarter},
+			#{fourthQuarter},
+			#{inspectionTime},
+			#{mark},
+			#{driverLicense},
+			#{queryCode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_maintenance_record SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			self_num = #{selfNum},
+			vehicle_num = #{vehicleNum},
+			operator = #{operator},
+			first_quarter = #{firstQuarter},
+			second_quarter = #{secondQuarter},
+			third_quarter = #{thirdQuarter},
+			fourth_quarter = #{fourthQuarter},
+			inspection_time = #{inspectionTime},
+			mark = #{mark},
+			driver_license = #{driverLicense},
+			query_code = #{queryCode}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_maintenance_record SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

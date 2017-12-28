@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZDriverBusinessDao">
+    
+	<sql id="zDriverBusinessColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.vehicle_type AS "vehicleType",
+		a.self_number AS "selfNumber",
+		a.vehicle_num AS "vehicleNum",
+		a.driver AS "driver",
+		a.contact_phone AS "contactPhone",
+		a.id_card AS "idCard",
+		a.address AS "address",
+		a.allowed_drive_model AS "allowedDriveModel",
+		a.license_initial_date AS "licenseInitialDate",
+		a.qua_cert_num AS "quaCertNum",
+		a.qua_cert_initial_date AS "quaCertInitialDate",
+		a.driver_date AS "driverDate",
+		a.quit_date AS "quitDate",
+		a.step AS "step",
+		a.query_code AS "queryCode"
+	</sql>
+	
+	<sql id="zDriverBusinessJoins">
+	</sql>
+    
+	<select id="get" resultType="ZDriverBusiness">
+		SELECT 
+			<include refid="zDriverBusinessColumns"/>
+		FROM z_driver_business a
+		<include refid="zDriverBusinessJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZDriverBusiness">
+		SELECT 
+			<include refid="zDriverBusinessColumns"/>
+		FROM z_driver_business a
+		<include refid="zDriverBusinessJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="selfNumber != null and selfNumber != ''">
+				AND a.self_number LIKE 
+					<if test="dbName == 'oracle'">'%'||#{selfNumber}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{selfNumber}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{selfNumber},'%')</if>
+			</if>
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="driver != null and driver != ''">
+				AND a.driver LIKE 
+					<if test="dbName == 'oracle'">'%'||#{driver}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{driver}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{driver},'%')</if>
+			</if>
+			<if test="contactPhone != null and contactPhone != ''">
+				AND a.contact_phone LIKE 
+					<if test="dbName == 'oracle'">'%'||#{contactPhone}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{contactPhone}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{contactPhone},'%')</if>
+			</if>
+			<if test="idCard != null and idCard != ''">
+				AND a.id_card LIKE 
+					<if test="dbName == 'oracle'">'%'||#{idCard}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{idCard}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{idCard},'%')</if>
+			</if>
+			<if test="beginDriverDate != null and endDriverDate != null and beginDriverDate != '' and endDriverDate != ''">
+				AND a.driver_date BETWEEN #{beginDriverDate} AND #{endDriverDate}
+			</if>
+			<if test="beginQuitDate != null and endQuitDate != null and beginQuitDate != '' and endQuitDate != ''">
+				AND a.quit_date BETWEEN #{beginQuitDate} AND #{endQuitDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZDriverBusiness">
+		SELECT 
+			<include refid="zDriverBusinessColumns"/>
+		FROM z_driver_business a
+		<include refid="zDriverBusinessJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_driver_business(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			vehicle_type,
+			self_number,
+			vehicle_num,
+			driver,
+			contact_phone,
+			id_card,
+			address,
+			allowed_drive_model,
+			license_initial_date,
+			qua_cert_num,
+			qua_cert_initial_date,
+			driver_date,
+			quit_date,
+			step,
+			query_code
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{vehicleType},
+			#{selfNumber},
+			#{vehicleNum},
+			#{driver},
+			#{contactPhone},
+			#{idCard},
+			#{address},
+			#{allowedDriveModel},
+			#{licenseInitialDate},
+			#{quaCertNum},
+			#{quaCertInitialDate},
+			#{driverDate},
+			#{quitDate},
+			#{step},
+			#{queryCode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_driver_business SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			vehicle_type = #{vehicleType},
+			self_number = #{selfNumber},
+			vehicle_num = #{vehicleNum},
+			driver = #{driver},
+			contact_phone = #{contactPhone},
+			id_card = #{idCard},
+			address = #{address},
+			allowed_drive_model = #{allowedDriveModel},
+			license_initial_date = #{licenseInitialDate},
+			qua_cert_num = #{quaCertNum},
+			qua_cert_initial_date = #{quaCertInitialDate},
+			driver_date = #{driverDate},
+			quit_date = #{quitDate},
+			step = #{step},
+			query_code = #{queryCode}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_driver_business SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

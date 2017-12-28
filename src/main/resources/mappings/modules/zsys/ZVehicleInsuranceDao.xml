@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZVehicleInsuranceDao">
+    
+	<sql id="zVehicleInsuranceColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.vehicle_num AS "vehicleNum",
+		a.vehicle_type AS "vehicleType",
+		a.frame_num AS "frameNum",
+		a.engine_num AS "engineNum",
+		a.reg_date AS "regDate",
+		a.insurance_company AS "insuranceCompany",
+		a.premium AS "premium",
+		a.closing_date AS "closingDate",
+		a.third_party_premium AS "thirdPartyPremium",
+		a.third_party_insured_amount AS "thirdPartyInsuredAmount",
+		a.car_damage_insurance AS "carDamageInsurance",
+		a.risk_spontaneous_combustion AS "riskSpontaneousCombustion",
+		a.non_deductible AS "nonDeductible",
+		a.other_insurance AS "otherInsurance",
+		a.closing_date1 AS "closingDate1",
+		a.premium1 AS "premium1",
+		a.insured_amount1 AS "insuredAmount1",
+		a.closing_date2 AS "closingDate2",
+		a.vehicle_vessel_tax AS "vehicleVesselTax",
+		a.total_premium AS "totalPremium",
+		a.compulsory_insurance_num AS "compulsoryInsuranceNum",
+		a.commercial_insurance_order_num AS "commercialInsuranceOrderNum",
+		a.carrier_warranty_num AS "carrierWarrantyNum",
+		a.mark AS "mark",
+		a.driver_license AS "driverLicense",
+		a.query_code AS "queryCode",
+		a.pic AS "pic"
+	</sql>
+	
+	<sql id="zVehicleInsuranceJoins">
+	</sql>
+    
+	<select id="get" resultType="ZVehicleInsurance">
+		SELECT 
+			<include refid="zVehicleInsuranceColumns"/>
+		FROM z_vehicle_insurance a
+		<include refid="zVehicleInsuranceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZVehicleInsurance">
+		SELECT 
+			<include refid="zVehicleInsuranceColumns"/>
+		FROM z_vehicle_insurance a
+		<include refid="zVehicleInsuranceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="frameNum != null and frameNum != ''">
+				AND a.frame_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{frameNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{frameNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{frameNum},'%')</if>
+			</if>
+			<if test="engineNum != null and engineNum != ''">
+				AND a.engine_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{engineNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{engineNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{engineNum},'%')</if>
+			</if>
+			<if test="beginRegDate != null and endRegDate != null and beginRegDate != '' and endRegDate != ''">
+				AND a.reg_date BETWEEN #{beginRegDate} AND #{endRegDate}
+			</if>
+			<if test="compulsoryInsuranceNum != null and compulsoryInsuranceNum != ''">
+				AND a.compulsory_insurance_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{compulsoryInsuranceNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{compulsoryInsuranceNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{compulsoryInsuranceNum},'%')</if>
+			</if>
+			<if test="commercialInsuranceOrderNum != null and commercialInsuranceOrderNum != ''">
+				AND a.commercial_insurance_order_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{commercialInsuranceOrderNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{commercialInsuranceOrderNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{commercialInsuranceOrderNum},'%')</if>
+			</if>
+			<if test="carrierWarrantyNum != null and carrierWarrantyNum != ''">
+				AND a.carrier_warranty_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{carrierWarrantyNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{carrierWarrantyNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{carrierWarrantyNum},'%')</if>
+			</if>
+			<if test="driverLicense != null and driverLicense != ''">
+				AND a.driver_license LIKE 
+					<if test="dbName == 'oracle'">'%'||#{driverLicense}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{driverLicense}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{driverLicense},'%')</if>
+			</if>
+			<if test="queryCode != null and queryCode != ''">
+				AND a.query_code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{queryCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{queryCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{queryCode},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZVehicleInsurance">
+		SELECT 
+			<include refid="zVehicleInsuranceColumns"/>
+		FROM z_vehicle_insurance a
+		<include refid="zVehicleInsuranceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_vehicle_insurance(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			vehicle_num,
+			vehicle_type,
+			frame_num,
+			engine_num,
+			reg_date,
+			insurance_company,
+			premium,
+			closing_date,
+			third_party_premium,
+			third_party_insured_amount,
+			car_damage_insurance,
+			risk_spontaneous_combustion,
+			non_deductible,
+			other_insurance,
+			closing_date1,
+			premium1,
+			insured_amount1,
+			closing_date2,
+			vehicle_vessel_tax,
+			total_premium,
+			compulsory_insurance_num,
+			commercial_insurance_order_num,
+			carrier_warranty_num,
+			mark,
+			driver_license,
+			query_code,
+			pic
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{vehicleNum},
+			#{vehicleType},
+			#{frameNum},
+			#{engineNum},
+			#{regDate},
+			#{insuranceCompany},
+			#{premium},
+			#{closingDate},
+			#{thirdPartyPremium},
+			#{thirdPartyInsuredAmount},
+			#{carDamageInsurance},
+			#{riskSpontaneousCombustion},
+			#{nonDeductible},
+			#{otherInsurance},
+			#{closingDate1},
+			#{premium1},
+			#{insuredAmount1},
+			#{closingDate2},
+			#{vehicleVesselTax},
+			#{totalPremium},
+			#{compulsoryInsuranceNum},
+			#{commercialInsuranceOrderNum},
+			#{carrierWarrantyNum},
+			#{mark},
+			#{driverLicense},
+			#{queryCode},
+			#{pic}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_vehicle_insurance SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			vehicle_num = #{vehicleNum},
+			vehicle_type = #{vehicleType},
+			frame_num = #{frameNum},
+			engine_num = #{engineNum},
+			reg_date = #{regDate},
+			insurance_company = #{insuranceCompany},
+			premium = #{premium},
+			closing_date = #{closingDate},
+			third_party_premium = #{thirdPartyPremium},
+			third_party_insured_amount = #{thirdPartyInsuredAmount},
+			car_damage_insurance = #{carDamageInsurance},
+			risk_spontaneous_combustion = #{riskSpontaneousCombustion},
+			non_deductible = #{nonDeductible},
+			other_insurance = #{otherInsurance},
+			closing_date1 = #{closingDate1},
+			premium1 = #{premium1},
+			insured_amount1 = #{insuredAmount1},
+			closing_date2 = #{closingDate2},
+			vehicle_vessel_tax = #{vehicleVesselTax},
+			total_premium = #{totalPremium},
+			compulsory_insurance_num = #{compulsoryInsuranceNum},
+			commercial_insurance_order_num = #{commercialInsuranceOrderNum},
+			carrier_warranty_num = #{carrierWarrantyNum},
+			mark = #{mark},
+			driver_license = #{driverLicense},
+			query_code = #{queryCode},
+			pic = #{pic}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_vehicle_insurance SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

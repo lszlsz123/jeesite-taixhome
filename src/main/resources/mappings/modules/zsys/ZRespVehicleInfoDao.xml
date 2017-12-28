@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZRespVehicleInfoDao">
+    
+	<sql id="zRespVehicleInfoColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.actual_online_operation_time AS "actualOnlineOperationTime",
+		a.operation_certificate_expire_date AS "operationCertificateExpireDate",
+		a.operation_certificate_issue_date AS "operationCertificateIssueDate",
+		a.operation_certificate_num AS "operationCertificateNum",
+		a.engine_num AS "engineNum",
+		a.frame_num AS "frameNum",
+		a.vehicle_production_date AS "vehicleProductionDate",
+		a.taximeter_num AS "taximeterNum",
+		a.vehicle_type AS "vehicleType",
+		a.name AS "name",
+		a.new_vehicle_num AS "newVehicleNum",
+		a.ori_vehicle_num AS "oriVehicleNum"
+	</sql>
+	
+	<sql id="zRespVehicleInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="ZRespVehicleInfo">
+		SELECT 
+			<include refid="zRespVehicleInfoColumns"/>
+		FROM z_resp_vehicle_info a
+		<include refid="zRespVehicleInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZRespVehicleInfo">
+		SELECT 
+			<include refid="zRespVehicleInfoColumns"/>
+		FROM z_resp_vehicle_info a
+		<include refid="zRespVehicleInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="newVehicleNum != null and newVehicleNum != ''">
+				AND a.new_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{newVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{newVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{newVehicleNum},'%')</if>
+			</if>
+			<if test="oriVehicleNum != null and oriVehicleNum != ''">
+				AND a.ori_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oriVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oriVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oriVehicleNum},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZRespVehicleInfo">
+		SELECT 
+			<include refid="zRespVehicleInfoColumns"/>
+		FROM z_resp_vehicle_info a
+		<include refid="zRespVehicleInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_resp_vehicle_info(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			actual_online_operation_time,
+			operation_certificate_expire_date,
+			operation_certificate_issue_date,
+			operation_certificate_num,
+			engine_num,
+			frame_num,
+			vehicle_production_date,
+			taximeter_num,
+			vehicle_type,
+			name,
+			new_vehicle_num,
+			ori_vehicle_num
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{actualOnlineOperationTime},
+			#{operationCertificateExpireDate},
+			#{operationCertificateIssueDate},
+			#{operationCertificateNum},
+			#{engineNum},
+			#{frameNum},
+			#{vehicleProductionDate},
+			#{taximeterNum},
+			#{vehicleType},
+			#{name},
+			#{newVehicleNum},
+			#{oriVehicleNum}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_resp_vehicle_info SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			actual_online_operation_time = #{actualOnlineOperationTime},
+			operation_certificate_expire_date = #{operationCertificateExpireDate},
+			operation_certificate_issue_date = #{operationCertificateIssueDate},
+			operation_certificate_num = #{operationCertificateNum},
+			engine_num = #{engineNum},
+			frame_num = #{frameNum},
+			vehicle_production_date = #{vehicleProductionDate},
+			taximeter_num = #{taximeterNum},
+			vehicle_type = #{vehicleType},
+			name = #{name},
+			new_vehicle_num = #{newVehicleNum},
+			ori_vehicle_num = #{oriVehicleNum}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_resp_vehicle_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
