@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZOperatorBusinessChangeDao">
     
+    <resultMap id="resultHashMap"   type="HashMap">
+		<result property="key" column="sdate" />
+		<result property="value" column="countNum" />
+	</resultMap>
+    
 	<sql id="zOperatorBusinessChangeColumns">
 		a.id AS "id",
 		a.create_by AS "createBy.id",
@@ -181,5 +186,9 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
+	
+	<select id="statisticsOperationBusinessChange" resultMap="resultHashMap">  
+		select date_format(t.create_date, '%Y-%m') sdate, count(*) as countNum from z_operator_business_change t group by sdate
+	</select>  
 	
 </mapper>

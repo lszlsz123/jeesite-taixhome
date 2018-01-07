@@ -10,12 +10,16 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 /**
  * 流程节点管理Entity
  * @author tom
- * @version 2017-12-24
+ * @version 2018-01-07
  */
 public class ZProcessNode extends DataEntity<ZProcessNode> {
 	
 	private static final long serialVersionUID = 1L;
 	private String name;		// 节点名称
+	private String processId;		// 流程ID
+	private String processName;		// 流程名称
+	private String seq;		// 排序
+	private String checkedFlag = "0"; //是否已经选择 1选择，0没有选择
 	
 	public ZProcessNode() {
 		super();
@@ -34,12 +38,41 @@ public class ZProcessNode extends DataEntity<ZProcessNode> {
 		this.name = name;
 	}
 	
-	public String getValue() {
-		return this.id;
+	@Length(min=0, max=64, message="流程ID长度必须介于 0 和 64 之间")
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
 	}
 	
-	public String getLabel() {
-		return this.name;
+	@Length(min=0, max=50, message="流程名称长度必须介于 0 和 50 之间")
+	public String getProcessName() {
+		return processName;
 	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+	
+	@Length(min=0, max=11, message="排序长度必须介于 0 和 11 之间")
+	public String getSeq() {
+		return seq;
+	}
+
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
+
+	public String getCheckedFlag() {
+		return checkedFlag;
+	}
+
+	public void setCheckedFlag(String checkedFlag) {
+		this.checkedFlag = checkedFlag;
+	}
+	
+	
 	
 }

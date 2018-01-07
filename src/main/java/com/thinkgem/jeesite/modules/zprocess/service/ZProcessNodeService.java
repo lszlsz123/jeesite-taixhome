@@ -16,7 +16,7 @@ import com.thinkgem.jeesite.modules.zprocess.dao.ZProcessNodeDao;
 /**
  * 流程节点管理Service
  * @author tom
- * @version 2017-12-24
+ * @version 2018-01-07
  */
 @Service
 @Transactional(readOnly = true)
@@ -32,6 +32,10 @@ public class ZProcessNodeService extends CrudService<ZProcessNodeDao, ZProcessNo
 	
 	public Page<ZProcessNode> findPage(Page<ZProcessNode> page, ZProcessNode zProcessNode) {
 		return super.findPage(page, zProcessNode);
+	}
+	
+	public List<ZProcessNode> findAllNodeList(String[] ids){
+		return dao.findListByIds(ids);
 	}
 	
 	@Transactional(readOnly = false)

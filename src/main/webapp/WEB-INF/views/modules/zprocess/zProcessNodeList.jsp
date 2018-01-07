@@ -28,6 +28,12 @@
 			<li><label>节点名称：</label>
 				<form:input path="name" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
+			<li><label>流程名称：</label>
+				<form:input path="processName" htmlEscape="false" maxlength="50" class="input-medium"/>
+			</li>
+			<li><label>排序：</label>
+				<form:input path="seq" htmlEscape="false" maxlength="11" class="input-medium"/>
+			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>
@@ -39,6 +45,8 @@
 				<th>更新日期</th>
 				<th>备注信息</th>
 				<th>节点名称</th>
+				<th>流程名称</th>
+				<th>排序</th>
 				<shiro:hasPermission name="zprocess:zProcessNode:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -53,6 +61,12 @@
 				</td>
 				<td>
 					${zProcessNode.name}
+				</td>
+				<td>
+					${zProcessNode.processName}
+				</td>
+				<td>
+					${zProcessNode.seq}
 				</td>
 				<shiro:hasPermission name="zprocess:zProcessNode:edit"><td>
     				<a href="${ctx}/zprocess/zProcessNode/form?id=${zProcessNode.id}">修改</a>

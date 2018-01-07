@@ -21,7 +21,9 @@
 		a.vehicle_num AS "vehicleNum",
 		a.procedure_content AS "procedureContent",
 		a.result AS "result",
-		a.processing_person AS "processingPerson"
+		a.processing_person AS "processingPerson",
+		a.frame_num as "frameNum",
+		a.query_code as "queryCode"
 	</sql>
 	
 	<sql id="zOperationViolationJoins">
@@ -65,6 +67,12 @@
 					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
 					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="queryCode != null and queryCode != ''">
+				AND a.query_code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{queryCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{queryCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{queryCode},'%')</if>
 			</if>
 			<if test="processingPerson != null and processingPerson != ''">
 				AND a.processing_person LIKE 
@@ -121,7 +129,9 @@
 			vehicle_num,
 			procedure_content,
 			result,
-			processing_person
+			processing_person,
+			frame_num,
+			query_code
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -141,7 +151,9 @@
 			#{vehicleNum},
 			#{procedureContent},
 			#{result},
-			#{processingPerson}
+			#{processingPerson},
+			#{frameNum},
+			#{queryCode}
 		)
 	</insert>
 	
@@ -161,7 +173,9 @@
 			vehicle_num = #{vehicleNum},
 			procedure_content = #{procedureContent},
 			result = #{result},
-			processing_person = #{processingPerson}
+			processing_person = #{processingPerson},
+			frame_num=#{frameNum},
+			query_code=#{queryCode}
 		WHERE id = #{id}
 	</update>
 	

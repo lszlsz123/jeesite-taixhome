@@ -12,11 +12,9 @@ import com.thinkgem.jeesite.modules.zprocess.entity.ZProcessNode;
 /**
  * 流程节点管理DAO接口
  * @author tom
- * @version 2017-12-24
+ * @version 2018-01-07
  */
 @MyBatisDao
 public interface ZProcessNodeDao extends CrudDao<ZProcessNode> {
-	
-	public List<ZProcessNode> findListByIds(String[] array);
-	
+	public List<ZProcessNode> findListByIds(String[] ids);
 }

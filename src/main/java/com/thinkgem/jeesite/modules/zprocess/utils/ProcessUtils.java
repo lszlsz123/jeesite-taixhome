@@ -45,7 +45,9 @@ public class ProcessUtils {
 		for(ZProcessLink item: linkList) {
 			nextStepIdList.add(item.getEndNode());
 		}
-		list.addAll(zProcessNodeDao.findListByIds((String[])nextStepIdList.toArray(new String[nextStepIdList.size()])));
+		if(nextStepIdList!=null && !nextStepIdList.isEmpty()) {
+			list.addAll(zProcessNodeDao.findListByIds((String[])nextStepIdList.toArray(new String[nextStepIdList.size()])));
+		}
 		return list;
 	}
 	
@@ -60,7 +62,7 @@ public class ProcessUtils {
 		if(node==null) {
 			node = new ZProcessNode();
 		}
-		return node.getLabel();
+		return node.getName();
 	}
 	
 	public static List<ZProcess> getZProcessList(){

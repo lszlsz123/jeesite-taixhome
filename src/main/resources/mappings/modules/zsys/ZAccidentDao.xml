@@ -88,6 +88,9 @@
 			<if test="queryCode != null and queryCode != ''">
 				AND a.query_code = #{queryCode}
 			</if>
+			<if test="respSituation != null and respSituation != ''">
+				AND a.resp_situation = #{respSituation}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">

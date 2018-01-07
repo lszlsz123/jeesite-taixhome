@@ -31,6 +31,8 @@ public class ZOperationViolation extends DataEntity<ZOperationViolation> {
 	private String processingPerson;		// 处理人
 	private Date beginComplaintTime;		// 开始 投诉时间
 	private Date endComplaintTime;		// 结束 投诉时间
+	private String frameNum; //车架号
+	private String queryCode;//查询码
 	
 	public ZOperationViolation() {
 		super();
@@ -163,5 +165,25 @@ public class ZOperationViolation extends DataEntity<ZOperationViolation> {
 	public void setEndComplaintTime(Date endComplaintTime) {
 		this.endComplaintTime = endComplaintTime;
 	}
+
+	@Length(min=0, max=50, message="长度必须介于 0 和 50 之间")
+	public String getFrameNum() {
+		return frameNum;
+	}
+
+	public void setFrameNum(String frameNum) {
+		this.frameNum = frameNum;
+	}
+
+	@Length(min=0, max=50, message="长度必须介于 0 和 50 之间")
+	public String getQueryCode() {
+		return queryCode;
+	}
+
+	public void setQueryCode(String queryCode) {
+		this.queryCode = queryCode;
+	}
+	
+	
 		
 }

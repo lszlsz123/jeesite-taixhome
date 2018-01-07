@@ -48,7 +48,7 @@
             ${page.taixHomePage}
             <script type="text/javascript">
 				function page(n,s){
-					location="${ctx}/list-?pageNo="+n+"&pageSize="+s;
+					location="${ctx}/zsys/zDriverBusiness/list?pageNo="+n+"&pageSize="+s;
 				}
 			</script>
           </ul>

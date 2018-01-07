@@ -51,8 +51,13 @@ public class ZOperatorBusinessChangeFrontController extends BaseController {
 		Page<ZOperatorBusinessChange> page = zOperatorBusinessChangeService.findPage(new Page<ZOperatorBusinessChange>(request, response), zOperatorBusinessChange); 
 		model.addAttribute("page", page);
 		model.addAttribute("zOperatorBusinessChange", zOperatorBusinessChange);
-		
-		return "modules/cms/front/themes/taixhome/actionPage/zsys/zOperatorBusinessChangeList";
+		if(page.getList().size()>0) {
+			ZOperatorBusinessChange vo = page.getList().get(0);
+			return formDetail(vo,request,response,model);
+		}else {
+//			return "modules/cms/front/themes/taixhome/actionPage/zsys/zOperatorBusinessChangeList";
+			return "modules/cms/front/themes/taixhome/actionPage/zsys/noData";
+		}
 	}
 
 	@RequestMapping(value = "formDetail")

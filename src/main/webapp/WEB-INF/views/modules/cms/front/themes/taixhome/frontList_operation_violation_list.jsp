@@ -16,9 +16,6 @@
       </a>
     </div>
     <div class="hp_btn">
-      <a href="ic.html">
-        <img src="${ctxStatic}/taixhome/image/hp_ic.png" alt="这是车辆保险计算器按钮"/>
-      </a>
     </div>
   </div>
   <div id="nav">
@@ -28,12 +25,12 @@
     <div class="nav_box">
       <ul>
         <li class="hp_vi li_wh" >
-          <a href="${ctx}/list-ad392d81cc2f4e81808faf0902542b27.html" target="_self">
+          <a href="${ctx}/list-ad392d81cc2f4e81808faf0902542b27.html" target="_self" style="font-size:25px;">
           	运营违规记录查询及处理
           </a>
         </li>
         <li class="hp_vi li_wh" >
-          <a href="${ctx}/list-94f0e1f0b2d345af84b043a64e6da6fe.html" target="_self">
+          <a href="${ctx}/list-94f0e1f0b2d345af84b043a64e6da6fe.html" target="_self" style="font-size:25px;">
           	人工服务
           </a>
         </li>
@@ -48,146 +45,48 @@
     </div>
   </div>
   </div>
-  <div id="column">
+	<div id="column">
     <div class="column_box">
       <div class="horn">
         <img src="${ctxStatic}/taixhome/image/hp_horn.png"/>
       </div>
       <div class="uct_box">
-        <span class="uct">二手车买卖</span>
-        <a href="uci.html">更多>></a>
+        <span class="uct"></span>
         <span class="udl"></span>
         <div class="ifm">
           <ul>
             <li>
-              <a href="uci.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="uci.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="uci.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="uci.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="uci.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="uci.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
           </ul>
         </div>
       </div>
       <div class="ri_box">
         <div class="hp_th rt"></div>
-        <span class="ri">招聘信息</span>
-        <a href="ri.html">更多>></a>
+        <span class="ri"></span>
         <span class="udl"></span>
         <div class="ifm">
           <ul>
             <li>
-              <a href="ri.html">
-              <span class="lf">
-                · 包吃+包住+户外喷绘写真工人...        (沈阳万赢广告有限公司)...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="ri.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="ri.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="ri.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="ri.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
             <li>
-              <a href="ri.html">
-              <span class="lf">
-                · 二手车 英菲尼迪 FX 2011款 FX35 3.5 手自一体 金尚超越版-车况精品精...
-              </span>
-              <span class="rt">
-                2017-05-06
-              </span>
-              </a>
             </li>
           </ul>
         </div>

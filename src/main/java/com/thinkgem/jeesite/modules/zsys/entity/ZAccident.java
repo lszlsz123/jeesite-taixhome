@@ -4,10 +4,13 @@
 package com.thinkgem.jeesite.modules.zsys.entity;
 
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
+import com.thinkgem.jeesite.modules.zprocess.entity.ZProcessNode;
 
 /**
  * 交通事故查询Entity
@@ -44,6 +47,7 @@ public class ZAccident extends DataEntity<ZAccident> {
 	private String nodeName;
 	private String processId;
 	private String nodeId;
+	private List<String> nodeList;
 	
 	public ZAccident() {
 		super();
@@ -287,6 +291,15 @@ public class ZAccident extends DataEntity<ZAccident> {
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
 	}
+
+	public List<String> getNodeList() {
+		return nodeList;
+	}
+
+	public void setNodeList(List<String> nodeList) {
+		this.nodeList = nodeList;
+	}
+
 	
 	
 		

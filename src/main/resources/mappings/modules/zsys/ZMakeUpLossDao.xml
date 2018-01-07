@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZMakeUpLossDao">
+    
+	<sql id="zMakeUpLossColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.vehicle_num AS "vehicleNum",
+		a.query_code AS "queryCode",
+		a.loss_time AS "lossTime",
+		a.cert_type AS "certType",
+		a.type AS "type"
+	</sql>
+	
+	<sql id="zMakeUpLossJoins">
+	</sql>
+    
+	<select id="get" resultType="ZMakeUpLoss">
+		SELECT 
+			<include refid="zMakeUpLossColumns"/>
+		FROM z_make_up_loss a
+		<include refid="zMakeUpLossJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZMakeUpLoss">
+		SELECT 
+			<include refid="zMakeUpLossColumns"/>
+		FROM z_make_up_loss a
+		<include refid="zMakeUpLossJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
+				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+			</if>
+			<if test="beginUpdateDate != null and endUpdateDate != null and beginUpdateDate != '' and endUpdateDate != ''">
+				AND a.update_date BETWEEN #{beginUpdateDate} AND #{endUpdateDate}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num = #{vehicleNum}
+			</if>
+			<if test="lossTime != null and lossTime != ''">
+				AND a.loss_time = #{lossTime}
+			</if>
+			<if test="certType != null and certType != ''">
+				AND a.cert_type = #{certType}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZMakeUpLoss">
+		SELECT 
+			<include refid="zMakeUpLossColumns"/>
+		FROM z_make_up_loss a
+		<include refid="zMakeUpLossJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_make_up_loss(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			vehicle_num,
+			query_code,
+			loss_time,
+			cert_type,
+			type
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{vehicleNum},
+			#{queryCode},
+			#{lossTime},
+			#{certType},
+			#{type}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_make_up_loss SET 	
+			update_by = #{updateBy.id},
+			create_date = #{createDate},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			vehicle_num = #{vehicleNum},
+			query_code = #{queryCode},
+			loss_time = #{lossTime},
+			cert_type = #{certType},
+			type = #{type}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_make_up_loss SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

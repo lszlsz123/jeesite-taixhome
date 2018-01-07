@@ -20,6 +20,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.zsys.entity.ZDriverBusiness;
+import com.thinkgem.jeesite.modules.zsys.entity.ZOperatorBusinessChange;
 import com.thinkgem.jeesite.modules.zsys.service.ZDriverBusinessService;
 
 /**
@@ -51,8 +52,13 @@ public class ZDriverBusinessFrontController extends BaseController {
 		Page<ZDriverBusiness> page = zDriverBusinessService.findPage(new Page<ZDriverBusiness>(request, response), zDriverBusiness); 
 		model.addAttribute("page", page);
 		model.addAttribute("zDriverBusiness", zDriverBusiness);
-		
-		return "modules/cms/front/themes/taixhome/actionPage/zsys/zDriverBusinessList";
+		if(page.getList().size()>0) {
+			ZDriverBusiness vo = page.getList().get(0);
+			return formDetail(vo,request,response,model);
+		}else {
+//			return "modules/cms/front/themes/taixhome/actionPage/zsys/zOperatorBusinessChangeList";
+			return "modules/cms/front/themes/taixhome/actionPage/zsys/noData";
+		}
 	}
 
 	@RequestMapping(value = "formDetail")

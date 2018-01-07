@@ -147,6 +147,7 @@
 		</div>
 		<div class="control-group">
 			<label class="control-label">自编号：</label>
+			
 			<div class="controls">
 				<form:input path="selfNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
 			</div>
@@ -165,20 +166,24 @@
 		</div>
 		
 		<div class="control-group">
-			<label class="control-label">流程</label>
+			<label class="control-label">流程节点选择：</label>
 			<div class="controls">
-				<form:select path="step" class="input-xlarge ">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getNextStepList(zAccident.processId,zAccident.nodeId)}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
+				<div class="controls">
+					<!-- >form:checkboxes path="nodeList" items="${nodeList}" itemLabel="name" itemValue="id" htmlEscape="false"/-->
+					<c:forEach var="item" items="${nodeList}" varStatus="status">
+				        <span>
+				         	<input name="nodeList" 
+				         	<c:if test="${item.checkedFlag == '1'}">
+				         		checked="checked" 
+				         	</c:if>
+				         	type="checkbox" value="${item.id}">
+				        	${item.name}
+				        </span>
+					</c:forEach> 
+				</div>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">当前节点：</label>
-			<div class="controls">
-				${zAccident.nodeName}
-			</div>
-		</div>
+		
 		<div class="form-actions">
 			<shiro:hasPermission name="zsys:zAccident:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>

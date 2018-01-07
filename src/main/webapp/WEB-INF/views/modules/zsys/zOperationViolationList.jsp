@@ -72,6 +72,8 @@
 				<th>车牌号</th>
 				<th>处理结果</th>
 				<th>处理人</th>
+				<th>车架号</th>
+				<th>查询码</th>
 				<shiro:hasPermission name="zsys:zOperationViolation:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -116,6 +118,12 @@
 				</td>
 				<td>
 					${zOperationViolation.processingPerson}
+				</td>
+				<td>
+					${zOperationViolation.frameNum}
+				</td>
+				<td>
+					${zOperationViolation.queryCode}
 				</td>
 				<shiro:hasPermission name="zsys:zOperationViolation:edit"><td>
     				<a href="${ctx}/zsys/zOperationViolation/form?id=${zOperationViolation.id}">修改</a>

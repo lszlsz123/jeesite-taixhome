@@ -39,10 +39,14 @@
 					<form:options items="${fns:getDictList('accident_level')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
-			<li><label>车辆承保公司：</label>
-				<form:input path="vehicleInsuranceCompany" htmlEscape="false" maxlength="50" class="input-medium"/>
+			<li>
+				<label>责任情况：</label>
+				<form:select path="respSituation" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('accident_response')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
-			<li><label>预估损失金额（元）：</label>
+			<li><label style="width:150px;">预估损失金额（元）：</label>
 				<form:input path="estimationAmount" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
 			<li><label>结案日期：</label>

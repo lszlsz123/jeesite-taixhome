@@ -81,11 +81,11 @@ function cleanSearchForm(){
 function submitForm1(){
 	$("#frameNum").val($("#text3").val());
 	$("#oriVehicleNum").val($("#text1").val()+$("#text2").val());
-	if($("#frameNum").val().trim()==""){
+	if($("#oriVehicleNum").val().trim().length<7){
 		alert("请输入车架号码后四位");
 		return false;
 	}
-	if($("#oriVehicleNum").val().trim()==""){
+	if($("#frameNum").val().trim().length<4){
 		alert("请输入车牌号码");
 		return false;
 	}

@@ -25,7 +25,7 @@ import com.thinkgem.jeesite.modules.zprocess.service.ZProcessNodeService;
 /**
  * 流程节点管理Controller
  * @author tom
- * @version 2017-12-24
+ * @version 2018-01-07
  */
 @Controller
 @RequestMapping(value = "${frontPath}/zprocess/zProcessNode")

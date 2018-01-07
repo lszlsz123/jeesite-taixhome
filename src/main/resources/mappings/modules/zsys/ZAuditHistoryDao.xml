@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZAuditHistoryDao">
+    
+	<sql id="zAuditHistoryColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.module_name AS "moduleName",
+		a.visit_ip AS "visitIp"
+	</sql>
+	
+	<sql id="zAuditHistoryJoins">
+	</sql>
+    
+	<select id="get" resultType="ZAuditHistory">
+		SELECT 
+			<include refid="zAuditHistoryColumns"/>
+		FROM z_audit_history a
+		<include refid="zAuditHistoryJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZAuditHistory">
+		SELECT 
+			<include refid="zAuditHistoryColumns"/>
+		FROM z_audit_history a
+		<include refid="zAuditHistoryJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="moduleName != null and moduleName != ''">
+				AND a.module_name = #{moduleName}
+			</if>
+			<if test="visitIp != null and visitIp != ''">
+				AND a.visit_ip = #{visitIp}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZAuditHistory">
+		SELECT 
+			<include refid="zAuditHistoryColumns"/>
+		FROM z_audit_history a
+		<include refid="zAuditHistoryJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_audit_history(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			module_name,
+			visit_ip
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{moduleName},
+			#{visitIp}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_audit_history SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			module_name = #{moduleName},
+			visit_ip = #{visitIp}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_audit_history SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -10,7 +10,10 @@
 		a.create_date AS "createDate",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.name AS "name"
+		a.name AS "name",
+		a.process_id AS "processId",
+		a.process_name AS "processName",
+		a.seq AS "seq"
 	</sql>
 	
 	<sql id="zProcessNodeJoins">
@@ -23,19 +26,21 @@
 		<include refid="zProcessNodeJoins"/>
 		WHERE a.id = #{id}
 	</select>
-	
+	<!-- findListByIds -->
 	<select id="findListByIds" resultType="ZProcessNode">
 		SELECT 
 			<include refid="zProcessNodeColumns"/>
 		FROM z_process_node a
 		<include refid="zProcessNodeJoins"/>
-		WHERE a.id in 
-		
-		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
-		  #{item}  
-		</foreach>
+		<where>
+			a.del_flag = '0'
+			and a.id in 
+			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+			 #{item}  
+			</foreach> 
+		</where>
+		order by a.seq asc
 	</select>
-	
 	
 	<select id="findList" resultType="ZProcessNode">
 		SELECT 
@@ -49,6 +54,15 @@
 					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
 					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="processName != null and processName != ''">
+				AND a.process_name = #{processName}
+			</if>
+			<if test="processId != null and processId != ''">
+				AND a.process_id = #{processId}
+			</if>
+			<if test="seq != null and seq != ''">
+				AND a.seq = #{seq}
 			</if>
 		</where>
 		<choose>
@@ -88,7 +102,10 @@
 			create_date,
 			update_date,
 			remarks,
-			name
+			name,
+			process_id,
+			process_name,
+			seq
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -97,7 +114,10 @@
 			#{createDate},
 			#{updateDate},
 			#{remarks},
-			#{name}
+			#{name},
+			#{processId},
+			#{processName},
+			#{seq}
 		)
 	</insert>
 	
@@ -106,7 +126,10 @@
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},
-			name = #{name}
+			name = #{name},
+			process_id = #{processId},
+			process_name = #{processName},
+			seq = #{seq}
 		WHERE id = #{id}
 	</update>
 	

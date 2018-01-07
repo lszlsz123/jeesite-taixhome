@@ -3,7 +3,9 @@
  */
 package com.thinkgem.jeesite.modules.zsys.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +44,15 @@ public class ZOperatorBusinessChangeService extends CrudService<ZOperatorBusines
 	@Transactional(readOnly = false)
 	public void delete(ZOperatorBusinessChange zOperatorBusinessChange) {
 		super.delete(zOperatorBusinessChange);
+	}
+	
+	public Map<String, Object> statisticsOperationBusinessChange(){
+		List<Map<String,Object>> list = dao.statisticsOperationBusinessChange();
+		Map<String, Object> map = new HashMap<String, Object>();
+		for(Map<String,Object> item: list) {
+			map.put((String) item.get("key"), Integer.parseInt(item.get("value").toString()));
+		}
+		return map;
 	}
 	
 }

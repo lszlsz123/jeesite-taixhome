@@ -25,7 +25,7 @@
   <div class="mg_content">
     <div class="mg_title">
       <ul class="yl_chose">
-        <li class="mg">车辆投保情况查询</li>
+        <li class="mg">${category.name}</li>
       </ul>
     </div>
     <div class="mg_mb">

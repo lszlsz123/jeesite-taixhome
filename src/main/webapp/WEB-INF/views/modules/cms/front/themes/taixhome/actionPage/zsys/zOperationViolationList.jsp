@@ -48,7 +48,7 @@
             ${page.taixHomePage}
             <script type="text/javascript">
 				function page(n,s){
-					location="${ctx}/list-?pageNo="+n+"&pageSize="+s;
+					location="${ctx}/zsys/zOperationViolation/list?pageNo="+n+"&pageSize="+s;
 				}
 			</script>
           </ul>
@@ -58,7 +58,7 @@
     </div>
   </div>
 		  <div class="mg_bottom">
-		    <a href="${ctx}/list-a1976cc4e876445196f20d5fd2a8ed2d.html">
+		    <a href="${ctx}/list-3b27eb7a9b234088b2832e9595065286.html">
 			        <span class="rt_upl lf">返回上一级</span>
 	      </a>
 	      <a href="${ctx}">

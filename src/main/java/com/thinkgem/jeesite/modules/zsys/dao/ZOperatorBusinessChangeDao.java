@@ -3,6 +3,9 @@
  */
 package com.thinkgem.jeesite.modules.zsys.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.zsys.entity.ZOperatorBusinessChange;
@@ -15,4 +18,5 @@ import com.thinkgem.jeesite.modules.zsys.entity.ZOperatorBusinessChange;
 @MyBatisDao
 public interface ZOperatorBusinessChangeDao extends CrudDao<ZOperatorBusinessChange> {
 	
+	public List<Map<String,Object>> statisticsOperationBusinessChange();
 }

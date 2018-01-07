@@ -41,6 +41,9 @@
 					<if test="dbName == 'mysql'">concat('%',#{nodeName},'%')</if>
 			</if>
 			<if test="stepSeq != null and stepSeq != ''">
+				AND a.acc_id = #{acc_id}
+			</if>
+			<if test="stepSeq != null and stepSeq != ''">
 				AND a.step_seq = #{stepSeq}
 			</if>
 		</where>

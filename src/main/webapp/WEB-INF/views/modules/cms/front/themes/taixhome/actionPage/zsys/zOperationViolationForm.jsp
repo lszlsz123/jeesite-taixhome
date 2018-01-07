@@ -51,7 +51,7 @@
   </div>
   <div class="mg_bottom">
     <div class="btn_box">
-      <a href="${ctx}/list-34eadbc7ec4e4481af24a9766bf711af.html">
+      <a href="${ctx}/list-3b27eb7a9b234088b2832e9595065286.html">
         <span class="rt_upl lf">返回上一级</span>
       </a>
       <a href="${ctx}">

@@ -40,7 +40,10 @@
 	              <input id="text1" class="vi_int1" type="text" placeholder="辽A" maxLength="2" value="辽A"/>
 	              <input id="text2" class="vi_int2" type="text" placeholder="请输入您的车牌号码" maxLength="5"/>
 	            </li>
-	            
+	            <li class="vi_li">
+	              <span class="vi_cxcs">车架号码：</span>
+	              <input style="width:500px;" id="text3" class="vi_int1" name="queryCode" type="text" placeholder="请输入您的车架号后四位" maxLength="4"/>
+	            </li>
 	          </ul>
 	          <div class="vi_btnbox ov">
 	            
@@ -56,7 +59,7 @@
   </div>
   <div class="mg_bottom">
     <div class="btn_box">
-      <a href="${ctx}/list-a1976cc4e876445196f20d5fd2a8ed2d.html">
+      <a href="${ctx}/list-3b27eb7a9b234088b2832e9595065286.html">
         <span class="rt_upl lf">返回上一级</span>
       </a>
       <a href="${ctx}">
@@ -78,7 +81,11 @@ function cleanSearchForm(){
 function submitForm1(){
 	$("#vehicleNum").val($("#text1").val()+$("#text2").val());
 	
-	if($("#vehicleNum").val().trim()==""){
+	if($("#vehicleNum").val().trim().length<7){
+		alert("请输入正确格式的车牌号码");
+		return false;
+	}
+	if($("#text3").val().trim().length<4){
 		alert("请输入车牌号码");
 		return false;
 	}

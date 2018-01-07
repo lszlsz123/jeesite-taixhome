@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.common.util.concurrent.Service;
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
@@ -94,9 +95,21 @@ public class ZAccidentController extends BaseController {
 		}else {
 			zAccident.setNodeId("9f98c072e3514e1fb36be796b35908b5");
 		}
+		ZProcessNode zProcessNode = new ZProcessNode();
+		zProcessNode.setProcessId("56cf538e415d4f00bb2275d3f5a666ca");
+		List<ZProcessNode> nodeList = zProcessNodeService.findList(zProcessNode);
+		
+		for(ZProcessNode node:nodeList) {
+			for(ZProcessStep stepItem:stepList) {
+				if(stepItem.getNodeId().equals(node.getId())) {
+					node.setCheckedFlag("1");
+				}
+			}
+		}
+		
+		model.addAttribute("nodeList",nodeList);
 		zAccident.setProcessId("56cf538e415d4f00bb2275d3f5a666ca");
 		model.addAttribute("zAccident", zAccident);
-		
 		return "modules/zsys/zAccidentForm";
 	}
 
@@ -112,6 +125,21 @@ public class ZAccidentController extends BaseController {
 			step.setAccId(zAccident.getId());
 			step.setNodeId(zAccident.getStep());
 			zProcessStepService.save(step);
+		}
+		if(null!=zAccident.getNodeList()&&!zAccident.getNodeList().isEmpty()) {
+			ZProcessStep step = new ZProcessStep();
+			step.setAccId(zAccident.getId());
+			List<ZProcessStep> list = zProcessStepService.findList(step);
+			for(ZProcessStep stepItem:list) {
+				zProcessStepService.delete(stepItem);
+			}
+			for(String id:zAccident.getNodeList()) {
+				ZProcessStep step1 = new ZProcessStep();
+				step1.setAccId(zAccident.getId());
+				step1.setNodeId(id);
+				zProcessStepService.save(step1);
+			}
+			
 		}
 		addMessage(redirectAttributes, "保存交通事故查询成功");
 		return "redirect:"+Global.getAdminPath()+"/zsys/zAccident/?repage";

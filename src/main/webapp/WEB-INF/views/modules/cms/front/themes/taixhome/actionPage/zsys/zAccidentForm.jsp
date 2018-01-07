@@ -4,7 +4,7 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title>责任经营车辆信息查询</title>
+  <title>交通事故查询</title>
   <link rel="stylesheet" type="text/css" href="${ctxStatic}/taixhome/css/portal.css"/>
 
 </head>
@@ -25,7 +25,7 @@
   <div class="mg_content">
     <div class="mg_title">
       <ul class="yl_chose">
-        <li class="mg">责任经营车辆信息查询</li>
+        <li class="mg">交通事故查询</li>
       </ul>
     </div>
     <div class="mg_mb">

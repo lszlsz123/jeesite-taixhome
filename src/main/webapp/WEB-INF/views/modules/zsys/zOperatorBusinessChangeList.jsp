@@ -57,6 +57,7 @@
 		<thead>
 			<tr>
 				<th>更新日期</th>
+				<th>办理时间</th>
 				<th>备注信息</th>
 				<th>编号</th>
 				<th>原车牌号</th>
@@ -80,6 +81,9 @@
 			<tr>
 				<td><a href="${ctx}/zsys/zOperatorBusinessChange/form?id=${zOperatorBusinessChange.id}">
 					<fmt:formatDate value="${zOperatorBusinessChange.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</a></td>
+				<td><a href="${ctx}/zsys/zOperatorBusinessChange/form?id=${zOperatorBusinessChange.id}">
+					<fmt:formatDate value="${zOperatorBusinessChange.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</a></td>
 				<td>
 					${zOperatorBusinessChange.remarks}
