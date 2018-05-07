@@ -42,7 +42,7 @@
 		<div class="control-group">
 			<label class="control-label">事故编号：</label>
 			<div class="controls">
-				<form:input path="accNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="accNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -54,13 +54,13 @@
 		<div class="control-group">
 			<label class="control-label">车牌号：</label>
 			<div class="controls">
-				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">肇事时间：</label>
 			<div class="controls">
-				<input name="accTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+				<input name="accTime" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
 					value="<fmt:formatDate value="${zInsuranceClaimSettlement.accTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
@@ -74,13 +74,13 @@
 		<div class="control-group">
 			<label class="control-label">肇事地点：</label>
 			<div class="controls">
-				<form:input path="accidentAddress" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="accidentAddress" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">责任情况：</label>
 			<div class="controls">
-				<form:select path="respSituation" class="input-xlarge ">
+				<form:select path="respSituation" class="required input-xlarge ">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('accident_response')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
@@ -89,13 +89,13 @@
 		<div class="control-group">
 			<label class="control-label">肇事司机：</label>
 			<div class="controls">
-				<form:input path="accDriver" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="accDriver" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">肇事原因：</label>
 			<div class="controls">
-				<form:textarea path="accReason" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+				<form:textarea path="accReason" htmlEscape="false" rows="4" maxlength="255" class="required input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -165,13 +165,36 @@
 		<div class="control-group">
 			<label class="control-label">驾照：</label>
 			<div class="controls">
-				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">查询码：</label>
 			<div class="controls">
-				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">车架号：</label>
+			<div class="controls">
+				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">事故等级：</label>
+			<div class="controls">
+				<form:select path="level" class="required input-xlarge ">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('accident_level')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">办理日期：</label>
+			<div class="controls">
+				<input name="handleDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
+					value="<fmt:formatDate value="${zInsuranceClaimSettlement.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="form-actions">

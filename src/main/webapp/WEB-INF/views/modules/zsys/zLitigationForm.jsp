@@ -42,13 +42,13 @@
 		<div class="control-group">
 			<label class="control-label">车号：</label>
 			<div class="controls">
-				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">事故时间：</label>
 			<div class="controls">
-				<input name="accTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+				<input name="accTime" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
 					value="<fmt:formatDate value="${zLitigation.accTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
@@ -62,7 +62,7 @@
 		<div class="control-group">
 			<label class="control-label">诉讼时间：</label>
 			<div class="controls">
-				<input name="litTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+				<input name="litTime" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
 					value="<fmt:formatDate value="${zLitigation.litTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
@@ -70,7 +70,7 @@
 		<div class="control-group">
 			<label class="control-label">诉讼标的：</label>
 			<div class="controls">
-				<form:textarea path="litTarget" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+				<form:textarea path="litTarget" htmlEscape="false" rows="4" maxlength="255" class="required input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -108,7 +108,7 @@
 		<div class="control-group">
 			<label class="control-label">诉讼法院：</label>
 			<div class="controls">
-				<form:input path="court" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="court" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -120,13 +120,33 @@
 		<div class="control-group">
 			<label class="control-label">驾照：</label>
 			<div class="controls">
-				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">查询码：</label>
 			<div class="controls">
-				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">车架号码：</label>
+			<div class="controls">
+				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">判决编号：</label>
+			<div class="controls">
+				<form:input path="judgmentNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">办理日期：</label>
+			<div class="controls">
+				<input name="handleDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
+					value="<fmt:formatDate value="${zLitigation.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="form-actions">

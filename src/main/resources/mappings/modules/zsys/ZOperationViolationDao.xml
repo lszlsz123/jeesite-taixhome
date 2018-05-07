@@ -23,7 +23,8 @@
 		a.result AS "result",
 		a.processing_person AS "processingPerson",
 		a.frame_num as "frameNum",
-		a.query_code as "queryCode"
+		a.query_code as "queryCode",
+		a.handle_date as "handleDate"
 	</sql>
 	
 	<sql id="zOperationViolationJoins">
@@ -131,7 +132,8 @@
 			result,
 			processing_person,
 			frame_num,
-			query_code
+			query_code,
+			handle_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -153,7 +155,8 @@
 			#{result},
 			#{processingPerson},
 			#{frameNum},
-			#{queryCode}
+			#{queryCode},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -175,7 +178,8 @@
 			result = #{result},
 			processing_person = #{processingPerson},
 			frame_num=#{frameNum},
-			query_code=#{queryCode}
+			query_code=#{queryCode},
+			handle_date=#{handleDate}
 		WHERE id = #{id}
 	</update>
 	

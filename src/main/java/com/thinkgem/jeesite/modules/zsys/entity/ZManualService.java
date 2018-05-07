@@ -22,6 +22,7 @@ public class ZManualService extends DataEntity<ZManualService> {
 	private Date endCreateDate;		// 结束 创建日期
 	private Date beginUpdateDate;		// 开始 更新日期
 	private Date endUpdateDate;		// 结束 更新日期
+	private String moduleName;
 	
 	public ZManualService() {
 		super();
@@ -29,6 +30,17 @@ public class ZManualService extends DataEntity<ZManualService> {
 
 	public ZManualService(String id){
 		super(id);
+	}
+
+	
+	
+	
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
 	}
 
 	@Length(min=0, max=50, message="name长度必须介于 0 和 50 之间")

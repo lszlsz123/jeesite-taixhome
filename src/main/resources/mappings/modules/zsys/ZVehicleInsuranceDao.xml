@@ -36,7 +36,10 @@
 		a.mark AS "mark",
 		a.driver_license AS "driverLicense",
 		a.query_code AS "queryCode",
-		a.pic AS "pic"
+		a.pic AS "pic",
+		a.pic1 AS "pic1",
+		a.pic2 AS "pic2",
+		a.handle_date AS "handleDate"
 	</sql>
 	
 	<sql id="zVehicleInsuranceJoins">
@@ -172,7 +175,10 @@
 			mark,
 			driver_license,
 			query_code,
-			pic
+			pic,
+			pic1,
+			pic2,
+			handle_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -207,7 +213,10 @@
 			#{mark},
 			#{driverLicense},
 			#{queryCode},
-			#{pic}
+			#{pic},
+			#{pic1},
+			#{pic2},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -242,7 +251,10 @@
 			mark = #{mark},
 			driver_license = #{driverLicense},
 			query_code = #{queryCode},
-			pic = #{pic}
+			pic = #{pic},
+			pic1 = #{pic1},
+			pic2 = #{pic2},
+			handle_date = #{handleDate}
 		WHERE id = #{id}
 	</update>
 	

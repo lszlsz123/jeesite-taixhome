@@ -32,6 +32,8 @@
       </ul>
     </div>
     <form id="searchForm" action="${ctx}/zsys/zManualService/save" method="post">
+    	<input type="hidden" name="moduleName" value="${category.name}">
+    	<input type="hidden" name="name" value="${category.name}">	
     </form>
   <div class="mg_bottom">
     <div class="btn_box">

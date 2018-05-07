@@ -64,6 +64,9 @@ public class ZDriverBusinessFrontController extends BaseController {
 	@RequestMapping(value = "formDetail")
 	public String formDetail(ZDriverBusiness zDriverBusiness, HttpServletRequest request, HttpServletResponse response, Model model) {
 		zDriverBusiness = get(zDriverBusiness.getId());
+		if(org.apache.commons.lang3.StringUtils.isBlank(zDriverBusiness.getStep())) {
+			zDriverBusiness.setStep("0");
+		}
 		model.addAttribute("zDriverBusiness", zDriverBusiness);
 		return "modules/cms/front/themes/taixhome/actionPage/zsys/zDriverBusinessForm";
 	}

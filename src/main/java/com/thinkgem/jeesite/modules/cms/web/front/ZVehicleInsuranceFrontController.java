@@ -13,12 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.modules.zsys.entity.ZRespVehicleInfo;
 import com.thinkgem.jeesite.modules.zsys.entity.ZVehicleInsurance;
 import com.thinkgem.jeesite.modules.zsys.service.ZVehicleInsuranceService;
 
@@ -44,6 +46,18 @@ public class ZVehicleInsuranceFrontController extends BaseController {
 			entity = new ZVehicleInsurance();
 		}
 		return entity;
+	}
+	
+	@RequestMapping(value = {"queryDetail"})
+	@ResponseBody
+	public ZVehicleInsurance queryVehicleInfo(ZVehicleInsurance zVehicleInsurance, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<ZVehicleInsurance> page = zVehicleInsuranceService.findPage(new Page<ZVehicleInsurance>(request, response), zVehicleInsurance); 
+		if(!page.getList().isEmpty()) {
+			zVehicleInsurance = page.getList().get(0);
+		}else {
+			zVehicleInsurance = null;
+		}
+		return zVehicleInsurance;
 	}
 	
 	@RequestMapping(value = {"list", ""})

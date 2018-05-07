@@ -34,6 +34,18 @@ public class ZRespVehicleInfoService extends CrudService<ZRespVehicleInfoDao, ZR
 		return super.findPage(page, zRespVehicleInfo);
 	}
 	
+	/**
+	 * 查询分页数据
+	 * @param page 分页对象
+	 * @param entity
+	 * @return
+	 */
+	public Page<ZRespVehicleInfo> findFrontPage(Page<ZRespVehicleInfo> page, ZRespVehicleInfo entity) {
+		entity.setPage(page);
+		page.setList(dao.findFrontList(entity));
+		return page;
+	}
+	
 	@Transactional(readOnly = false)
 	public void save(ZRespVehicleInfo zRespVehicleInfo) {
 		super.save(zRespVehicleInfo);

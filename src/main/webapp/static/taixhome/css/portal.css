@@ -431,7 +431,7 @@ body{
   /*border-radius: 4px;*/
   text-align: center;
   line-height: 60px;
-  position: absolute;
+/*   position: absolute; */
   top: 31px;
   right: 1px;
   cursor: pointer;
@@ -1070,7 +1070,7 @@ tr th td{
   outline: none;
 }
 .vi_int1{
-  width: 160px;
+  width: 80px;
   height: 54px;
   font-size: 24px;
   padding-left: 10px;

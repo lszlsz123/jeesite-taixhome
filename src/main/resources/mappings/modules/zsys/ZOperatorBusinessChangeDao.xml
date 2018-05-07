@@ -28,7 +28,9 @@
 		a.address AS "address",
 		a.boarding_time AS "boardingTime",
 		a.query_code AS "queryCode",
-		a.step AS "step"
+		a.step AS "step",
+		a.frame_num AS "frameNum",
+		a.handle_date AS "handleDate"
 	</sql>
 	
 	<sql id="zOperatorBusinessChangeJoins">
@@ -41,7 +43,59 @@
 		<include refid="zOperatorBusinessChangeJoins"/>
 		WHERE a.id = #{id}
 	</select>
-	
+<!-- 	findFrontList -->
+	<select id="findFrontList" resultType="ZOperatorBusinessChange">
+		SELECT 
+			<include refid="zOperatorBusinessChangeColumns"/>
+		FROM z_operator_business_change a
+		<include refid="zOperatorBusinessChangeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="num != null and num != ''">
+				AND a.num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{num}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{num}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{num},'%')</if>
+			</if>
+			<if test="oriVehicleNum != null and oriVehicleNum != '' and newVehicleNum != null and newVehicleNum != ''">
+				AND (
+				a.ori_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oriVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oriVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oriVehicleNum},'%')</if>
+			
+				or a.new_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{newVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{newVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{newVehicleNum},'%')</if>
+					)
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="phoneNum != null and phoneNum != ''">
+				AND a.phone_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{phoneNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{phoneNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{phoneNum},'%')</if>
+			</if>
+			<if test="beginBoardingTime != null and endBoardingTime != null and beginBoardingTime != '' and endBoardingTime != ''">
+				AND a.boarding_time BETWEEN #{beginBoardingTime} AND #{endBoardingTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
 	<select id="findList" resultType="ZOperatorBusinessChange">
 		SELECT 
 			<include refid="zOperatorBusinessChangeColumns"/>
@@ -133,7 +187,9 @@
 			address,
 			boarding_time,
 			query_code,
-			step
+			step,
+			frame_num,
+			handle_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -155,7 +211,9 @@
 			#{address},
 			#{boardingTime},
 			#{queryCode},
-			#{step}
+			#{step},
+			#{frameNum},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -177,7 +235,9 @@
 			address = #{address},
 			boarding_time = #{boardingTime},
 			query_code = #{queryCode},
-			step = #{step}
+			step = #{step},
+			frame_num=#{frameNum},
+			handle_date=#{handleDate}
 		WHERE id = #{id}
 	</update>
 	
@@ -188,7 +248,7 @@
 	</update>
 	
 	<select id="statisticsOperationBusinessChange" resultMap="resultHashMap">  
-		select date_format(t.create_date, '%Y-%m') sdate, count(*) as countNum from z_operator_business_change t group by sdate
+		select date_format(t.handle_date, '%Y-%m') sdate, count(*) as countNum from z_operator_business_change t group by sdate
 	</select>  
 	
 </mapper>

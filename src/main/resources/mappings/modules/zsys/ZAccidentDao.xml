@@ -28,7 +28,9 @@
 		a.accident_num AS "accidentNum",
 		a.self_num AS "selfNum",
 		a.driver_license AS "driverLicense",
-		a.query_code AS "queryCode"
+		a.query_code AS "queryCode",
+		a.frame_num AS "frameNum",
+		a.handle_date AS "handleDate"
 	</sql>
 	
 	<sql id="zAccidentJoins">
@@ -147,7 +149,9 @@
 			accident_num,
 			self_num,
 			driver_license,
-			query_code
+			query_code,
+			frame_num,
+			handle_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -174,7 +178,9 @@
 			#{accidentNum},
 			#{selfNum},
 			#{driverLicense},
-			#{queryCode}
+			#{queryCode},
+			#{frameNum},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -201,7 +207,9 @@
 			accident_num = #{accidentNum},
 			self_num = #{selfNum},
 			driver_license = #{driverLicense},
-			query_code = #{queryCode}
+			query_code = #{queryCode},
+			frame_num = #{frameNum},
+			handle_date = #{handleDate}
 		WHERE id = #{id}
 	</update>
 	

@@ -29,5 +29,11 @@
 	<!-- 系统活动会话缓存 -->
     <cache name="activeSessionsCache" maxEntriesLocalHeap="10000" eternal="true" overflowToDisk="true"
            diskPersistent="true" diskExpiryThreadIntervalSeconds="600" statistics="true"/>
+           
+            <cache name="service_cache" maxElementsInMemory="10000"
+ 		maxElementsOnDisk="10000000" eternal="true" overflowToDisk="true"
+ 		diskSpoolBufferSizeMB="20" 
+ 		diskPersistent="true" memoryStoreEvictionPolicy="LRU" statistics="false" />
+           
     	
 </ehcache>

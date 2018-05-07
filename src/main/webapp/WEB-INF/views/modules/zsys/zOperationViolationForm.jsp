@@ -42,7 +42,7 @@
 		<div class="control-group">
 			<label class="control-label">投诉时间：</label>
 			<div class="controls">
-				<input name="complaintTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+				<input name="complaintTime" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
 					value="<fmt:formatDate value="${zOperationViolation.complaintTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
@@ -50,7 +50,7 @@
 		<div class="control-group">
 			<label class="control-label">投诉类型：</label>
 			<div class="controls">
-				<form:select path="complaintType" class="input-xlarge ">
+				<form:select path="complaintType" class="required input-xlarge ">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('complainType')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
@@ -95,7 +95,7 @@
 		<div class="control-group">
 			<label class="control-label">车牌号：</label>
 			<div class="controls">
-				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -113,7 +113,7 @@
 		<div class="control-group">
 			<label class="control-label">处理人：</label>
 			<div class="controls">
-				<form:input path="processingPerson" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="processingPerson" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -126,6 +126,14 @@
 			<label class="control-label">查询码：</label>
 			<div class="controls">
 				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">办理日期：</label>
+			<div class="controls">
+				<input name="handleDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
+					value="<fmt:formatDate value="${zOperationViolation.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="form-actions">

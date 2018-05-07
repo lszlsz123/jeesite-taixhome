@@ -58,7 +58,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>更新日期</th>
+				<th>办理日期</th>
 				<th>备注信息</th>
 				<th>车号</th>
 				<th>事故时间</th>
@@ -81,7 +81,7 @@
 		<c:forEach items="${page.list}" var="zLitigation">
 			<tr>
 				<td><a href="${ctx}/zsys/zLitigation/form?id=${zLitigation.id}">
-					<fmt:formatDate value="${zLitigation.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${zLitigation.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</a></td>
 				<td>
 					${zLitigation.remarks}

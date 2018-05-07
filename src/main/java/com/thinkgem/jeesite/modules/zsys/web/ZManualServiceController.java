@@ -93,7 +93,7 @@ public class ZManualServiceController extends BaseController {
 	@RequiresPermissions("zsys:zManualService:view")
 	@ResponseBody
 	@RequestMapping(value = "findManualServiceList", method=RequestMethod.POST)
-	public String findManualServiceList(HttpServletRequest request) throws ParseException {
+	public List<ZManualService> findManualServiceList(HttpServletRequest request) throws ParseException {
 		JSONObject json = new JSONObject();
 		ZManualService queryVO = new ZManualService();
 		Date date = new Date();
@@ -107,13 +107,13 @@ public class ZManualServiceController extends BaseController {
 		queryVO.setBeginCreateDate(startDate);
 		queryVO.setEndCreateDate(endDate);
 		List<ZManualService> entityList = zManualServiceService.findList(queryVO);
-		JSONArray array = new JSONArray();
-		for(ZManualService item:entityList) {
-			array.put(item.getId());
-		}
-		json.put("ids", array);
-		json.put("length", entityList.size());
-		return json.toString();
+//		JSONArray array = new JSONArray();
+//		for(ZManualService item:entityList) {
+//			array.put(item.getId());
+//		}
+//		json.put("ids", array);
+//		json.put("length", entityList.size());
+		return entityList;
 	}
 	
 	@RequiresPermissions("zsys:zManualService:edit")

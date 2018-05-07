@@ -270,6 +270,7 @@
 			<div id="contentDiv" class="modal-body">
 				
 			</div>
+			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					关闭
@@ -286,6 +287,26 @@ $(function(){
 	//checkManualService();
 	t1=window.setInterval("checkManualService()",10000);
 });
+// var agt = navigator.userAgent.toLowerCase();
+// function getMimeType(){
+//     var mimeType = "application/x-mplayer2"; //default
+//     if(navigator.mimeTypes && agt.indexOf("windows") == -1){
+//         // non-IE, no-Windows
+//         var plugin = navigator.mimeTypes["audio/mpeg"].enabledPlugin;
+
+//         // Mac/Safari & Linux/FFox
+//         if(plugin)
+//             mimeType = "audio/mpeg";
+//     }//end no-Windows
+//     return mimeType
+// }//end function getMimeType
+
+
+function playSound(id,url){
+//     mimeType = getMimeType();
+//     return '<embed src="' + url + '" type="' + mimeType + '" hidden="true" autostart="false" loop="false" width="1" height="1" id="soundplayer'+id+'" enablejavascript="true" />';
+	return '<audio src="'+url+'" id="soundplayer'+id+'" loop="false" hidden="true" />';
+}
 
 function checkManualService(){
 	$.ajax({
@@ -299,10 +320,28 @@ function checkManualService(){
         	if(data.length>0){
 				debugger;
 				var message = "有"+data.length+"个人员呼叫人工服务！";
+				var file = '';
+				if(data[0].name.indexOf("交通事故")>-1){
+// 					file="安全技术.mp3";
+					document.getElementById("soundplayer1").play();
+				}else if(data[0].name.indexOf("人工服务")>-1){
+// 					file="运营违规记录语音.mp3";
+					document.getElementById("soundplayer2").play();
+				}else if(data[0].name.indexOf("外事人员")>-1){
+// 					file="外事人员办理语音.mp3";
+					document.getElementById("soundplayer3").play();
+				}else if(data[0].name.indexOf("拾到物品登记")){
+// 					file="拾到物品登记语音.mp3";
+					document.getElementById("soundplayer4").play();
+				}else if(data[0].name.indexOf("挂失补办")>-1){
+// 					file="证件遗失补办语音.mp3";
+					document.getElementById("soundplayer5").play();
+				}
 				
 				$("#manualServiceDialog").find("#contentDiv").html(message);
 				$("#manualServiceDialog").modal('show');
 				window.clearInterval(t1);
+				
         	}
         	
         },
@@ -311,9 +350,21 @@ function checkManualService(){
         }
      });
 }
+function genAudio(){
+	var htmlContent = playSound(1,"${pageContext.request.contextPath}/static/vedio/安全技术.mp3");
+	htmlContent+=playSound(2,"${pageContext.request.contextPath}/static/vedio/运营违规记录语音.mp3");
+	htmlContent+=playSound(3,"${pageContext.request.contextPath}/static/vedio/外事人员办理语音.mp3");
+	htmlContent+=playSound(4,"${pageContext.request.contextPath}/static/vedio/拾到物品登记语音.mp3");
+	htmlContent+=playSound(5,"${pageContext.request.contextPath}/static/vedio/证件遗失补办语音.mp3");
+	$("#vedioDiv").html(htmlContent);
+}
 
 $(function () { 
+	debugger;
+	genAudio();
 	$('#manualServiceDialog').on('hide.bs.modal', function () {
+		$("#vedioDiv").html("");
+		genAudio();
 		$.ajax({
 	        type: "post",
 	        url: "${ctx}/zsys/zManualService/updateManualServiceList",
@@ -331,5 +382,8 @@ $(function () {
 })
  
 </script>
+<div id="vedioDiv">
+				
+</div>
 </body>
 </html>

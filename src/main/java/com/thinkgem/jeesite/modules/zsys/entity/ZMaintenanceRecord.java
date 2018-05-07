@@ -30,6 +30,8 @@ public class ZMaintenanceRecord extends DataEntity<ZMaintenanceRecord> {
 	private String queryCode;		// 查询码
 	private Date beginInspectionTime;		// 开始 车辆年检时间
 	private Date endInspectionTime;		// 结束 车辆年检时间
+	private String inspectionDate;
+	private String frameNum;
 	
 	public ZMaintenanceRecord() {
 		super();
@@ -37,6 +39,25 @@ public class ZMaintenanceRecord extends DataEntity<ZMaintenanceRecord> {
 
 	public ZMaintenanceRecord(String id){
 		super(id);
+	}
+
+	
+	@Length(min=0, max=50, message="车辆年检时间长度必须介于 0 和 50 之间")
+	public String getInspectionDate() {
+		return inspectionDate;
+	}
+
+	public void setInspectionDate(String inspectionDate) {
+		this.inspectionDate = inspectionDate;
+	}
+
+	@Length(min=0, max=50, message="车架号码长度必须介于 0 和 50 之间")
+	public String getFrameNum() {
+		return frameNum;
+	}
+
+	public void setFrameNum(String frameNum) {
+		this.frameNum = frameNum;
 	}
 
 	@Length(min=0, max=50, message="自编号长度必须介于 0 和 50 之间")

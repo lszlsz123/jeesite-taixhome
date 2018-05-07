@@ -42,19 +42,19 @@
 		<div class="control-group">
 			<label class="control-label">车牌号码：</label>
 			<div class="controls">
-				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">查询码：</label>
 			<div class="controls">
-				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">丢失时间：</label>
 			<div class="controls">
-				<input name="lossTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+				<input name="lossTime" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
 					value="<fmt:formatDate value="${zMakeUpLoss.lossTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
@@ -62,7 +62,7 @@
 		<div class="control-group">
 			<label class="control-label">证件类型：</label>
 			<div class="controls">
-				<form:select path="certType" class="input-xlarge ">
+				<form:select path="certType" class="required input-xlarge ">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('cert_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
@@ -71,7 +71,7 @@
 		<div class="control-group">
 			<label class="control-label">办理事件类型：</label>
 			<div class="controls">
-				<form:select path="type" class="input-xlarge ">
+				<form:select path="type" class="required input-xlarge ">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('loss_reassignment_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>

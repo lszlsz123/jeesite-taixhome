@@ -40,10 +40,10 @@
 	              <input id="text1" class="vi_int1" type="text" placeholder="辽A" value="辽A" maxLength="2"/>
 	              <input id="text2" class="vi_int2" type="text" placeholder="请输入您的车牌号码" maxLength="5"/>
 	            </li>
-	            <li class="vi_li">
-	              <span class="vi_cxcs">车架号码：</span>
-	              <input style="width:500px;" id="text3" class="vi_int1" type="text" placeholder="请输入您的车架号后四位" maxLength="4"/>
-	            </li>
+<!-- 	            <li class="vi_li"> -->
+<!-- 	              <span class="vi_cxcs">车架号码：</span> -->
+<!-- 	              <input style="width:500px;" id="text3" class="vi_int1" type="text" placeholder="请输入您的车架号后四位" maxLength="4"/> -->
+<!-- 	            </li> -->
 	          </ul>
 	          <div class="vi_btnbox ov">
 	            <button class="vi_btn1 lf" type="submit">结果查询</button>
@@ -79,10 +79,10 @@ function submitForm(){
 	debugger;
 	$("#queryCode").val($("#text3").val());
 	$("#vehicleNum").val($("#text1").val()+$("#text2").val());
-	if($("#queryCode").val().length<4){
-		alert("请输入您的车架号后四位");
-		return false;
-	}
+// 	if($("#queryCode").val().length<4){
+// 		alert("请输入您的车架号后四位");
+// 		return false;
+// 	}
 	if($("#vehicleNum").val().length<7){
 		alert("请输入您的车牌号码");
 		return false;

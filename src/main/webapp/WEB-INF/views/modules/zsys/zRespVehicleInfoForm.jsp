@@ -66,25 +66,25 @@
 		<div class="control-group">
 			<label class="control-label">营运证号：</label>
 			<div class="controls">
-				<form:input path="operationCertificateNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="operationCertificateNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">发动机号：</label>
 			<div class="controls">
-				<form:input path="engineNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="engineNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">车架号：</label>
 			<div class="controls">
-				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">车辆出厂日期：</label>
 			<div class="controls">
-				<input name="vehicleProductionDate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+				<input name="vehicleProductionDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
 					value="<fmt:formatDate value="${zRespVehicleInfo.vehicleProductionDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
@@ -92,31 +92,39 @@
 		<div class="control-group">
 			<label class="control-label">计价器编号：</label>
 			<div class="controls">
-				<form:input path="taximeterNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="taximeterNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">车辆型号：</label>
 			<div class="controls">
-				<form:input path="vehicleType" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleType" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">姓名：</label>
 			<div class="controls">
-				<form:input path="name" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="name" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">新车号：</label>
 			<div class="controls">
-				<form:input path="newVehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="newVehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">原车号：</label>
 			<div class="controls">
 				<form:input path="oriVehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">办理日期：</label>
+			<div class="controls">
+				<input name="handleDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
+					value="<fmt:formatDate value="${zRespVehicleInfo.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="form-actions">

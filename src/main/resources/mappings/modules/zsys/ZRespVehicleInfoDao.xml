@@ -21,7 +21,8 @@
 		a.vehicle_type AS "vehicleType",
 		a.name AS "name",
 		a.new_vehicle_num AS "newVehicleNum",
-		a.ori_vehicle_num AS "oriVehicleNum"
+		a.ori_vehicle_num AS "oriVehicleNum",
+		a.handle_date as "handle_date"
 	</sql>
 	
 	<sql id="zRespVehicleInfoJoins">
@@ -34,7 +35,44 @@
 		<include refid="zRespVehicleInfoJoins"/>
 		WHERE a.id = #{id}
 	</select>
-	
+<!-- 	findFrontList -->
+	<select id="findFrontList" resultType="ZRespVehicleInfo">
+		SELECT 
+			<include refid="zRespVehicleInfoColumns"/>
+		FROM z_resp_vehicle_info a
+		<include refid="zRespVehicleInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="newVehicleNum != null and newVehicleNum != '' and oriVehicleNum != null and oriVehicleNum != ''">
+				AND 
+				(a.new_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{newVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{newVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{newVehicleNum},'%')</if>
+			
+				or  a.ori_vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oriVehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oriVehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oriVehicleNum},'%')</if>
+				)
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
 	<select id="findList" resultType="ZRespVehicleInfo">
 		SELECT 
 			<include refid="zRespVehicleInfoColumns"/>
@@ -109,7 +147,8 @@
 			vehicle_type,
 			name,
 			new_vehicle_num,
-			ori_vehicle_num
+			ori_vehicle_num,
+			handle_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -129,7 +168,8 @@
 			#{vehicleType},
 			#{name},
 			#{newVehicleNum},
-			#{oriVehicleNum}
+			#{oriVehicleNum},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -149,7 +189,8 @@
 			vehicle_type = #{vehicleType},
 			name = #{name},
 			new_vehicle_num = #{newVehicleNum},
-			ori_vehicle_num = #{oriVehicleNum}
+			ori_vehicle_num = #{oriVehicleNum},
+			handle_date=#{handleDate}
 		WHERE id = #{id}
 	</update>
 	

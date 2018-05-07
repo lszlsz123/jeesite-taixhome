@@ -3,6 +3,8 @@
  */
 package com.thinkgem.jeesite.modules.zsys.dao;
 
+import java.util.List;
+
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.zsys.entity.ZRespVehicleInfo;
@@ -15,4 +17,10 @@ import com.thinkgem.jeesite.modules.zsys.entity.ZRespVehicleInfo;
 @MyBatisDao
 public interface ZRespVehicleInfoDao extends CrudDao<ZRespVehicleInfo> {
 	
+	/**
+	 * 查询数据列表，如果需要分页，请设置分页对象，如：entity.setPage(new Page<T>());
+	 * @param entity
+	 * @return
+	 */
+	public List<ZRespVehicleInfo> findFrontList(ZRespVehicleInfo entity);
 }

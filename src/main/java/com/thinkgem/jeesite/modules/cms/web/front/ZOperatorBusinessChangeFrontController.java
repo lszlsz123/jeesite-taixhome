@@ -48,7 +48,12 @@ public class ZOperatorBusinessChangeFrontController extends BaseController {
 	
 	@RequestMapping(value = {"list", ""})
 	public String list(ZOperatorBusinessChange zOperatorBusinessChange, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<ZOperatorBusinessChange> page = zOperatorBusinessChangeService.findPage(new Page<ZOperatorBusinessChange>(request, response), zOperatorBusinessChange); 
+		String vehicleNum = (String)request.getParameter("vehicleNum");
+		if(StringUtils.isNotBlank(vehicleNum)) {
+			zOperatorBusinessChange.setOriVehicleNum(vehicleNum);
+			zOperatorBusinessChange.setNewVehicleNum(vehicleNum);
+		}
+		Page<ZOperatorBusinessChange> page = zOperatorBusinessChangeService.findFrontPage(new Page<ZOperatorBusinessChange>(request, response), zOperatorBusinessChange); 
 		model.addAttribute("page", page);
 		model.addAttribute("zOperatorBusinessChange", zOperatorBusinessChange);
 		if(page.getList().size()>0) {
@@ -63,6 +68,9 @@ public class ZOperatorBusinessChangeFrontController extends BaseController {
 	@RequestMapping(value = "formDetail")
 	public String formDetail(ZOperatorBusinessChange zOperatorBusinessChange, HttpServletRequest request, HttpServletResponse response, Model model) {
 		zOperatorBusinessChange = get(zOperatorBusinessChange.getId());
+		if(org.apache.commons.lang3.StringUtils.isBlank(zOperatorBusinessChange.getStep())) {
+			zOperatorBusinessChange.setStep("0");
+		}
 		model.addAttribute("zOperatorBusinessChange", zOperatorBusinessChange);
 		return "modules/cms/front/themes/taixhome/actionPage/zsys/zOperatorBusinessChangeForm";
 	}

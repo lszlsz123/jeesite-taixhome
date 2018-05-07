@@ -65,7 +65,7 @@
             	<form method="post" action="${ctx}/zsys/zDriverBusiness/list" onsubmit="return submitSearchForm1();">
 	                <div class="mg_search ov">
 	                    	<input type="text" class="mg_search_1 lf" id="vehicleNum" name="vehicleNum" placeholder="请输入您的车牌号进行查询" maxlength="7"/>
-	                    	<input type="text" class="mg_search_1 rt" id="queryCode" name="queryCode" placeholder="请输入您的车架号码后四位" maxlength="7"/>
+<!-- 	                    	<input type="text" class="mg_search_1 rt" id="queryCode" name="queryCode" placeholder="请输入您的车架号码后四位" maxlength="7"/> -->
 	                    	<button class="mg_search_btn1" type="submit">查询</button>
 	                </div>
             	</form>
@@ -141,15 +141,15 @@
 function submitSearchForm1(){
 	debugger;
 	var vehicleNum = $("#vehicleNum").val();
-	var queryCode = $("#queryCode").val();
+// 	var queryCode = $("#queryCode").val();
 	if(vehicleNum.length<7){
 		alert("车牌号必须符合规格");
 		return false;
 	}
-	if(queryCode.length<4){
-		alert("查询码必须为4位");
-		return false;
-	}
+// 	if(queryCode.length<4){
+// 		alert("查询码必须为4位");
+// 		return false;
+// 	}
 	return true;
 	
 }

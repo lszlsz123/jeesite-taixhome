@@ -24,7 +24,9 @@
 		a.driver_date AS "driverDate",
 		a.quit_date AS "quitDate",
 		a.step AS "step",
-		a.query_code AS "queryCode"
+		a.query_code AS "queryCode",
+		a.frame_num AS "frameNum",
+		a.handle_date as "handleDate"
 	</sql>
 	
 	<sql id="zDriverBusinessJoins">
@@ -133,7 +135,9 @@
 			driver_date,
 			quit_date,
 			step,
-			query_code
+			query_code,
+			frame_num,
+			handle_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -156,7 +160,9 @@
 			#{driverDate},
 			#{quitDate},
 			#{step},
-			#{queryCode}
+			#{queryCode},
+			#{frameNum},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -179,7 +185,9 @@
 			driver_date = #{driverDate},
 			quit_date = #{quitDate},
 			step = #{step},
-			query_code = #{queryCode}
+			query_code = #{queryCode},
+			frame_num=#{frameNum},
+			handle_date=#{handleDate}
 		WHERE id = #{id}
 	</update>
 	

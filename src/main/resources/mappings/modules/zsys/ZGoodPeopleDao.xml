@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZGoodPeopleDao">
+    
+	<sql id="zGoodPeopleColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.reg_date AS "regDate",
+		a.vehicle_num AS "vehicleNum",
+		a.name AS "name",
+		a.type AS "type",
+		a.ride_time AS "rideTime",
+		a.borading_location AS "boradingLocation",
+		a.drop_off_point AS "dropOffPoint",
+		a.receiptor AS "receiptor",
+		a.contact_phone AS "contactPhone"
+	</sql>
+	
+	<sql id="zGoodPeopleJoins">
+	</sql>
+    
+	<select id="get" resultType="ZGoodPeople">
+		SELECT 
+			<include refid="zGoodPeopleColumns"/>
+		FROM z_good_people a
+		<include refid="zGoodPeopleJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZGoodPeople">
+		SELECT 
+			<include refid="zGoodPeopleColumns"/>
+		FROM z_good_people a
+		<include refid="zGoodPeopleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZGoodPeople">
+		SELECT 
+			<include refid="zGoodPeopleColumns"/>
+		FROM z_good_people a
+		<include refid="zGoodPeopleJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_good_people(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			reg_date,
+			vehicle_num,
+			name,
+			type,
+			ride_time,
+			borading_location,
+			drop_off_point,
+			receiptor,
+			contact_phone
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{regDate},
+			#{vehicleNum},
+			#{name},
+			#{type},
+			#{rideTime},
+			#{boradingLocation},
+			#{dropOffPoint},
+			#{receiptor},
+			#{contactPhone}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_good_people SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			reg_date = #{regDate},
+			vehicle_num = #{vehicleNum},
+			name = #{name},
+			type = #{type},
+			ride_time = #{rideTime},
+			borading_location = #{boradingLocation},
+			drop_off_point = #{dropOffPoint},
+			receiptor = #{receiptor},
+			contact_phone = #{contactPhone}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_good_people SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

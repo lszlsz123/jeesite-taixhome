@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -32,18 +33,18 @@
     <form id="searchForm" action="${ctx}/zsys/zRespVehicleInfo/list" method="post" onsubmit="return submitForm1();">
 	    <div class="zpxx_box clear">
 	        <div class="vi_box">
-	              <input type="hidden" id="frameNum" name="frameNum" value=""/>
+<!-- 	              <input type="hidden" id="frameNum" name="frameNum" value=""/> -->
 	              <input type="hidden" id="oriVehicleNum" name="oriVehicleNum" value=""/>
 	          <ul>
 	            <li class="vi_li">
 	              <span class="vi_cxcs">车牌号码：</span>
-	              <input id="text1" class="vi_int1" type="text" placeholder="辽" maxLength="2"/>
+	              <input id="text1" class="vi_int1" type="text" placeholder="辽A" value="辽A" maxLength="2"/>
 	              <input id="text2" class="vi_int2" type="text" placeholder="请输入您的车牌号码" maxLength="5"/>
 	            </li>
-	            <li class="vi_li">
-	              <span class="vi_cxcs">车架号码：</span>
-	              <input style="width:500px;" id="text3" class="vi_int1" type="text" placeholder="请输入您的车架号后四位" maxLength="4"/>
-	            </li>
+<!-- 	            <li class="vi_li"> -->
+<!-- 	              <span class="vi_cxcs">车架号码：</span> -->
+<!-- 	              <input style="width:500px;" id="text3" class="vi_int1" type="text" placeholder="请输入您的车架号后四位" maxLength="4"/> -->
+<!-- 	            </li> -->
 	          </ul>
 	          <div class="vi_btnbox ov">
 	            
@@ -73,6 +74,7 @@
 </div>
 <script src="${ctxStatic}/taixhome/js/jquery-1.11.3.js"></script>
 <script src="${ctxStatic}/taixhome/js/index.js"></script>
+<%@ include file="/WEB-INF/views/modules/cms/front/include/keyboard.jsp"%>
 <script type="text/javascript">
 function cleanSearchForm(){
 	debugger;
@@ -82,17 +84,32 @@ function submitForm1(){
 	$("#frameNum").val($("#text3").val());
 	$("#oriVehicleNum").val($("#text1").val()+$("#text2").val());
 	if($("#oriVehicleNum").val().trim().length<7){
-		alert("请输入车架号码后四位");
-		return false;
-	}
-	if($("#frameNum").val().trim().length<4){
 		alert("请输入车牌号码");
 		return false;
 	}
+// 	if($("#frameNum").val().trim().length<4){
+// 		alert("请输入车架号码后四位");
+// 		return false;
+// 	}
 	return true;
 	
 //	$("#searchForm").submit();
 }
+
+$(function(){
+
+	$('#text2').keyboard({
+		display: {
+			  'accept' : '完成',
+			  'enter':'换行',
+			  'shift':'切换大小写',
+			  'bksp':'删除',
+			  'cancel':'取消'
+			  
+			}
+	});
+
+});
 </script>
 </body>
 </html>

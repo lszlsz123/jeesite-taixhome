@@ -64,6 +64,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
+				<th>办理日期</th>
 				<th>更新日期</th>
 				<th>备注信息</th>
 				<th>车型</th>
@@ -87,9 +88,16 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="zDriverBusiness">
 			<tr>
-				<td><a href="${ctx}/zsys/zDriverBusiness/form?id=${zDriverBusiness.id}">
-					<fmt:formatDate value="${zDriverBusiness.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</a></td>
+				<td>
+					<a href="${ctx}/zsys/zDriverBusiness/form?id=${zDriverBusiness.id}">
+						<fmt:formatDate value="${zDriverBusiness.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					</a>
+				</td>
+				<td>
+					<a href="${ctx}/zsys/zDriverBusiness/form?id=${zDriverBusiness.id}">
+						<fmt:formatDate value="${zDriverBusiness.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					</a>
+				</td>
 				<td>
 					${zDriverBusiness.remarks}
 				</td>

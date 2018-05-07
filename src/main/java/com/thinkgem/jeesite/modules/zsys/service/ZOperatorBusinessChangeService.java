@@ -35,6 +35,12 @@ public class ZOperatorBusinessChangeService extends CrudService<ZOperatorBusines
 	public Page<ZOperatorBusinessChange> findPage(Page<ZOperatorBusinessChange> page, ZOperatorBusinessChange zOperatorBusinessChange) {
 		return super.findPage(page, zOperatorBusinessChange);
 	}
+	public Page<ZOperatorBusinessChange> findFrontPage(Page<ZOperatorBusinessChange> page, ZOperatorBusinessChange zOperatorBusinessChange) {
+		zOperatorBusinessChange.setPage(page);
+		page.setList(dao.findFrontList(zOperatorBusinessChange));
+		return page;
+	}
+	
 	
 	@Transactional(readOnly = false)
 	public void save(ZOperatorBusinessChange zOperatorBusinessChange) {

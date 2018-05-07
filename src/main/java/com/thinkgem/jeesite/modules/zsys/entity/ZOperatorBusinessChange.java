@@ -33,6 +33,8 @@ public class ZOperatorBusinessChange extends DataEntity<ZOperatorBusinessChange>
 	private String step;		// 审批流程
 	private Date beginBoardingTime;		// 开始 上车时间
 	private Date endBoardingTime;		// 结束 上车时间
+	private String frameNum;
+	private Date handleDate;
 	
 	public ZOperatorBusinessChange() {
 		super();
@@ -40,6 +42,26 @@ public class ZOperatorBusinessChange extends DataEntity<ZOperatorBusinessChange>
 
 	public ZOperatorBusinessChange(String id){
 		super(id);
+	}
+
+	
+	
+	@Length(min=0, max=50, message="车架号长度必须介于 0 和 50 之间")
+	public String getFrameNum() {
+		return frameNum;
+	}
+
+	public void setFrameNum(String frameNum) {
+		this.frameNum = frameNum;
+	}
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	public Date getHandleDate() {
+		return handleDate;
+	}
+
+	public void setHandleDate(Date handleDate) {
+		this.handleDate = handleDate;
 	}
 
 	@Length(min=0, max=50, message="编号长度必须介于 0 和 50 之间")

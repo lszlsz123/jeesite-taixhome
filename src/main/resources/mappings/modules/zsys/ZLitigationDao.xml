@@ -23,7 +23,10 @@
 		a.court AS "court",
 		a.mark AS "mark",
 		a.driver_license AS "driverLicense",
-		a.query_code AS "queryCode"
+		a.query_code AS "queryCode",
+		a.frame_num AS "frameNum",
+		a.judgment_num AS "judgmentNum",
+		a.handle_date AS "handleDate"
 	</sql>
 	
 	<sql id="zLitigationJoins">
@@ -119,7 +122,10 @@
 			court,
 			mark,
 			driver_license,
-			query_code
+			query_code,
+			frame_num,
+			judgment_num,
+			handle_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -141,7 +147,10 @@
 			#{court},
 			#{mark},
 			#{driverLicense},
-			#{queryCode}
+			#{queryCode},
+			#{frameNum},
+			#{judgmentNum},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -163,7 +172,10 @@
 			court = #{court},
 			mark = #{mark},
 			driver_license = #{driverLicense},
-			query_code = #{queryCode}
+			query_code = #{queryCode},
+			frame_num = #{frameNum},
+			judgment_num = #{judgmentNum},
+			handle_date = #{handleDate}
 		WHERE id = #{id}
 	</update>
 	

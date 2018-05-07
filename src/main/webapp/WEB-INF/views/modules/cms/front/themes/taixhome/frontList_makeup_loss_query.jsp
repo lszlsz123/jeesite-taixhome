@@ -40,10 +40,10 @@
 				              <input id="text1" class="vi_int1" type="text" placeholder="辽A" maxLength="2" value="辽A"/>
 				              <input id="text2" class="vi_int2" type="text" placeholder="请输入您的车牌号码" maxLength="5"/>
 				            </li>
-				            <li class="vi_li">
-				              <span class="vi_cxcs">车架号码：</span>
-				              <input style="width:500px;" id="queryCode" class="vi_int1" type="text" name="queryCode" placeholder="请输入您的车架号后四位" maxLength="4"/>
-				            </li>
+<!-- 				            <li class="vi_li"> -->
+<!-- 				              <span class="vi_cxcs">车架号码：</span> -->
+<!-- 				              <input style="width:500px;" id="queryCode" class="vi_int1" type="text" name="queryCode" placeholder="请输入您的车架号后四位" maxLength="4"/> -->
+<!-- 				            </li> -->
 				            <li class="vi_li">
 				              <span class="vi_cxcs">证件类型：</span>
 				              <select class="vi_int1" name="certType" style="width:500px;">
@@ -100,10 +100,10 @@ function submitSearchForm(){
 		alert("车牌号必须符合规格");
 		return false;
 	}
-	if(queryCode.length<4){
-		alert("查询码必须为4位");
-		return false;
-	}
+// 	if(queryCode.length<4){
+// 		alert("查询码必须为4位");
+// 		return false;
+// 	}
 	return true;
 	
 }

@@ -47,12 +47,43 @@ public class ZVehicleInsurance extends DataEntity<ZVehicleInsurance> {
 	private Date beginRegDate;		// 开始 登记日期
 	private Date endRegDate;		// 结束 登记日期
 	
+	private String pic1;
+	private String pic2;
+	private Date handleDate;
+	
 	public ZVehicleInsurance() {
 		super();
 	}
 
 	public ZVehicleInsurance(String id){
 		super(id);
+	}
+
+	
+	@Length(min=0, max=255, message="保单图片长度必须介于 0 和 255 之间")
+	public String getPic1() {
+		return pic1;
+	}
+
+	public void setPic1(String pic1) {
+		this.pic1 = pic1;
+	}
+	@Length(min=0, max=255, message="保单图片长度必须介于 0 和 255 之间")
+	public String getPic2() {
+		return pic2;
+	}
+
+	public void setPic2(String pic2) {
+		this.pic2 = pic2;
+	}
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	public Date getHandleDate() {
+		return handleDate;
+	}
+
+	public void setHandleDate(Date handleDate) {
+		this.handleDate = handleDate;
 	}
 
 	@Length(min=0, max=50, message="车号长度必须介于 0 和 50 之间")

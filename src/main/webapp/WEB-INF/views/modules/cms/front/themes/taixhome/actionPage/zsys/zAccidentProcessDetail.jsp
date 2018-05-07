@@ -40,10 +40,10 @@
             <span class="tai_int_name">车牌号：</span>
             <input class="tai_int_int1" type="text" id="vehicleNum" name="accVehcileNum" placeholder="请输入您的车牌号进行查询" maxlength="7" value="${zAccident.accVehcileNum}"/>
           </div>
-          <div class="tai_int_1 lf">
-            <span class="tai_int_name">车架号：</span>
-            <input class="tai_int_int1" type="text" id="queryCode" name="queryCode" placeholder="请输入您的车架号码后四位" maxlength="4" value="${zAccident.queryCode}"/>
-          </div>
+<!--           <div class="tai_int_1 lf"> -->
+<!--             <span class="tai_int_name">车架号：</span> -->
+<%--             <input class="tai_int_int1" type="text" id="queryCode" name="queryCode" placeholder="请输入您的车架号码后四位" maxlength="4" value="${zAccident.queryCode}"/> --%>
+<!--           </div> -->
           <button class="tai_button lf" type="submit">查询</button>
         </div>
       </form>
@@ -330,10 +330,10 @@ function submitSearchForm(){
 		alert("车牌号必须符合规格");
 		return false;
 	}
-	if(queryCode.length<4){
-		alert("查询码必须为4位");
-		return false;
-	}
+// 	if(queryCode.length<4){
+// 		alert("查询码必须为4位");
+// 		return false;
+// 	}
 	return true;
 }
 </script>

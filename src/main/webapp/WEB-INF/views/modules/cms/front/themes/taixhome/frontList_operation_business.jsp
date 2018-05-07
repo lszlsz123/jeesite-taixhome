@@ -44,6 +44,16 @@
 			运营管理知识及制度
           </a>
         </li>
+        <li class="hp_vi li_wh">
+          <a href="${ctx}/zsys/zGoodPeople/list">
+			好人好事
+          </a>
+        </li>
+        <li class="hp_vi li_wh">
+          <a href="${ctx}/zsys/zLossArticles/list">
+			遗失物品
+          </a>
+        </li>
        
       </ul>
     </div>

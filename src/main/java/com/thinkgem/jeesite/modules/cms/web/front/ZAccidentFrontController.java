@@ -64,9 +64,18 @@ public class ZAccidentFrontController extends BaseController {
 	
 	@RequestMapping(value = {"list", ""})
 	public String list(ZAccident zAccident, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<ZAccident> page = zAccidentService.findPage(new Page<ZAccident>(request, response), zAccident); 
-		model.addAttribute("page", page);
-		model.addAttribute("zAccident", zAccident);
+		
+		if(null!=zAccident.getAccTime() || StringUtils.isNotBlank(zAccident.getVehicleInsuranceCompany())||StringUtils.isNotBlank(zAccident.getEstimationAmount())||
+			null!=zAccident.getBeginCloseDate()||StringUtils.isNotBlank(zAccident.getAccVehcileNum())||StringUtils.isNotBlank(zAccident.getDriverName())||
+			StringUtils.isNotBlank(zAccident.getAccidentNum())||StringUtils.isNotBlank(zAccident.getDriverLicense())||StringUtils.isNotBlank(zAccident.getQueryCode())||
+			StringUtils.isNotBlank(zAccident.getRespSituation())
+			
+				) {
+			
+			Page<ZAccident> page = zAccidentService.findPage(new Page<ZAccident>(request, response), zAccident); 
+			model.addAttribute("page", page);
+			model.addAttribute("zAccident", zAccident);
+		}
 		
 		return "modules/cms/front/themes/taixhome/actionPage/zsys/zAccidentList";
 	}

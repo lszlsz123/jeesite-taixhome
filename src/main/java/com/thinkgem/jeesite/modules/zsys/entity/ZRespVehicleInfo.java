@@ -29,7 +29,18 @@ public class ZRespVehicleInfo extends DataEntity<ZRespVehicleInfo> {
 	private String name;		// 姓名
 	private String newVehicleNum;		// 新车号
 	private String oriVehicleNum;		// 原车号
+	private Date handleDate; //办理日期
 	
+	
+	
+	public Date getHandleDate() {
+		return handleDate;
+	}
+
+	public void setHandleDate(Date handleDate) {
+		this.handleDate = handleDate;
+	}
+
 	public ZRespVehicleInfo() {
 		super();
 	}

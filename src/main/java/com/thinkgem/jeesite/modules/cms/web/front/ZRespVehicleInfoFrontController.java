@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
@@ -46,11 +47,30 @@ public class ZRespVehicleInfoFrontController extends BaseController {
 		return entity;
 	}
 	
+	@RequestMapping(value = {"queryDetail"})
+	@ResponseBody
+	public ZRespVehicleInfo queryVehicleInfo(ZRespVehicleInfo zRespVehicleInfo, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<ZRespVehicleInfo> page = zRespVehicleInfoService.findPage(new Page<ZRespVehicleInfo>(request, response), zRespVehicleInfo); 
+		if(!page.getList().isEmpty()) {
+			zRespVehicleInfo = page.getList().get(0);
+		}else {
+			zRespVehicleInfo = null;
+		}
+		return zRespVehicleInfo;
+	}
 	@RequestMapping(value = {"list", ""})
 	public String list(ZRespVehicleInfo zRespVehicleInfo, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<ZRespVehicleInfo> page = zRespVehicleInfoService.findPage(new Page<ZRespVehicleInfo>(request, response), zRespVehicleInfo); 
-		model.addAttribute("page", page);
-		model.addAttribute("zRespVehicleInfo", zRespVehicleInfo);
+		if(org.apache.commons.lang3.StringUtils.isNotBlank(zRespVehicleInfo.getOriVehicleNum())) {
+			zRespVehicleInfo.setNewVehicleNum(zRespVehicleInfo.getOriVehicleNum());
+		}
+		if(org.apache.commons.lang3.StringUtils.isNotBlank(zRespVehicleInfo.getName())||
+				org.apache.commons.lang3.StringUtils.isNotBlank(zRespVehicleInfo.getOriVehicleNum())||
+				org.apache.commons.lang3.StringUtils.isNotBlank(zRespVehicleInfo.getNewVehicleNum())
+				) {
+			Page<ZRespVehicleInfo> page = zRespVehicleInfoService.findFrontPage(new Page<ZRespVehicleInfo>(request, response), zRespVehicleInfo); 
+			model.addAttribute("page", page);
+			model.addAttribute("zRespVehicleInfo", zRespVehicleInfo);
+		}
 		
 		return "modules/cms/front/themes/taixhome/actionPage/zsys/zRespVehicleInfoList";
 	}

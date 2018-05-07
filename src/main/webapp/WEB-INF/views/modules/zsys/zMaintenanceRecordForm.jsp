@@ -48,13 +48,13 @@
 		<div class="control-group">
 			<label class="control-label">车牌号：</label>
 			<div class="controls">
-				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">经营者：</label>
 			<div class="controls">
-				<form:input path="operator" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="operator" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -98,13 +98,25 @@
 		<div class="control-group">
 			<label class="control-label">驾照：</label>
 			<div class="controls">
-				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">查询码：</label>
 			<div class="controls">
-				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">车架号码：</label>
+			<div class="controls">
+				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">年检时间：</label>
+			<div class="controls">
+				<form:input path="inspectionDate" htmlEscape="false" maxlength="50" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="form-actions">

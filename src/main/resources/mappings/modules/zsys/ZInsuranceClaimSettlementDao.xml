@@ -30,7 +30,10 @@
 		a.company_realse_time AS "companyRealseTime",
 		a.mark AS "mark",
 		a.driver_license AS "driverLicense",
-		a.query_code AS "queryCode"
+		a.query_code AS "queryCode",
+		a.frame_num as "frameNum",
+		a.level as "level",
+		a.handle_date as "handleDate"
 	</sql>
 	
 	<sql id="zInsuranceClaimSettlementJoins">
@@ -145,7 +148,10 @@
 			company_realse_time,
 			mark,
 			driver_license,
-			query_code
+			query_code,
+			frame_num ,
+			level ,
+			handle_date 
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -174,7 +180,10 @@
 			#{companyRealseTime},
 			#{mark},
 			#{driverLicense},
-			#{queryCode}
+			#{queryCode},
+			#{frameNum},
+			#{level},
+			#{handleDate}
 		)
 	</insert>
 	
@@ -203,7 +212,10 @@
 			company_realse_time = #{companyRealseTime},
 			mark = #{mark},
 			driver_license = #{driverLicense},
-			query_code = #{queryCode}
+			query_code = #{queryCode},
+			frame_num = #{frameNum},
+			level = #{level},
+			handle_date = #{handleDate}
 		WHERE id = #{id}
 	</update>
 	

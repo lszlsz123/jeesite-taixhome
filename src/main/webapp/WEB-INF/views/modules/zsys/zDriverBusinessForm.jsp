@@ -42,7 +42,7 @@
 		<div class="control-group">
 			<label class="control-label">车型：</label>
 			<div class="controls">
-				<form:input path="vehicleType" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleType" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -54,37 +54,37 @@
 		<div class="control-group">
 			<label class="control-label">车牌：</label>
 			<div class="controls">
-				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">备班驾驶员：</label>
 			<div class="controls">
-				<form:input path="driver" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="driver" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">联系电话：</label>
 			<div class="controls">
-				<form:input path="contactPhone" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="contactPhone" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">身份证号：</label>
 			<div class="controls">
-				<form:input path="idCard" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="idCard" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">地址：</label>
 			<div class="controls">
-				<form:input path="address" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="address" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">准驾车型：</label>
 			<div class="controls">
-				<form:input path="allowedDriveModel" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="allowedDriveModel" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -137,7 +137,21 @@
 		<div class="control-group">
 			<label class="control-label">查询号码：</label>
 			<div class="controls">
-				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">车架号码：</label>
+			<div class="controls">
+				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">办理日期：</label>
+			<div class="controls">
+				<input name="handleDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
+					value="<fmt:formatDate value="${zDriverBusiness.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="form-actions">

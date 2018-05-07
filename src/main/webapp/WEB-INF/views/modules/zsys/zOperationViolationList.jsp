@@ -59,7 +59,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>更新日期</th>
+				<th>办理日期</th>
 				<th>备注信息</th>
 				<th>投诉时间</th>
 				<th>投诉类型</th>
@@ -81,7 +81,7 @@
 		<c:forEach items="${page.list}" var="zOperationViolation">
 			<tr>
 				<td><a href="${ctx}/zsys/zOperationViolation/form?id=${zOperationViolation.id}">
-					<fmt:formatDate value="${zOperationViolation.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${zOperationViolation.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</a></td>
 				<td>
 					${zOperationViolation.remarks}

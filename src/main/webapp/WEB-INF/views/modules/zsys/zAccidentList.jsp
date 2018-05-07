@@ -66,9 +66,9 @@
 			<li><label>事故编号：</label>
 				<form:input path="accidentNum" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
-			<li><label>驾照：</label>
-				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="input-medium"/>
-			</li>
+<!-- 			<li><label>驾照：</label> -->
+<%-- 				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="input-medium"/> --%>
+<!-- 			</li> -->
 			<li><label>查询码：</label>
 				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
@@ -80,7 +80,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>更新日期</th>
+				<th>办理日期</th>
 				<th>备注信息</th>
 				<th>事故时间</th>
 				<th>事故地点</th>
@@ -99,7 +99,7 @@
 				<th>驾驶员姓名</th>
 				<th>事故编号</th>
 				<th>自编号</th>
-				<th>驾照</th>
+<!-- 				<th>驾照</th> -->
 				<th>查询码</th>
 				<shiro:hasPermission name="zsys:zAccident:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -108,7 +108,7 @@
 		<c:forEach items="${page.list}" var="zAccident">
 			<tr>
 				<td><a href="${ctx}/zsys/zAccident/form?id=${zAccident.id}">
-					<fmt:formatDate value="${zAccident.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${zAccident.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</a></td>
 				<td>
 					${zAccident.remarks}
@@ -120,7 +120,7 @@
 					${zAccident.accAddress}
 				</td>
 				<td>
-					${fns:getDictLabel(zAccident.respSituation, 'accident_reponse', '')}
+					${fns:getDictLabel(zAccident.respSituation, 'accident_response', '')}
 				</td>
 				<td>
 					${fns:getDictLabel(zAccident.level, 'accident_level', '')}
@@ -164,9 +164,9 @@
 				<td>
 					${zAccident.selfNum}
 				</td>
-				<td>
-					${zAccident.driverLicense}
-				</td>
+<!-- 				<td> -->
+<%-- 					${zAccident.driverLicense} --%>
+<!-- 				</td> -->
 				<td>
 					${zAccident.queryCode}
 				</td>

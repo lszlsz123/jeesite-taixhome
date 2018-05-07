@@ -23,6 +23,28 @@
 				}
 			});
 		});
+		
+		$(function(){
+			$("#vehicleNum").blur(function(){
+				$.ajax({
+					   type: "POST",
+					   url: "${pageContext.request.contextPath}${fns:getFrontPath()}/zsys/zVehicleInsurance/queryDetail",
+					   data: "vehicleNum="+$("#vehicleNum").val(),
+					   async: false,
+					   dataType:"json",
+					   success: function(data){
+						   if(data.vehicleNum&&data.vehicleNum!=""){
+							   $("#vehicleNum").val(data.vehicleNum);
+							   $("#vehicleType").val(data.vehicleType);
+							   $("#frameNum").val(data.frameNum);
+							   $("#engineNum").val(data.engineNum);
+							   
+						   }
+					     	
+					   }
+					});
+			});
+		});
 	</script>
 </head>
 <body>
@@ -42,25 +64,25 @@
 		<div class="control-group">
 			<label class="control-label">车号：</label>
 			<div class="controls">
-				<form:input path="vehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleNum"  htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">车型：</label>
 			<div class="controls">
-				<form:input path="vehicleType" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="vehicleType" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">车架号：</label>
 			<div class="controls">
-				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">发动机号：</label>
 			<div class="controls">
-				<form:input path="engineNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="engineNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -194,20 +216,44 @@
 		<div class="control-group">
 			<label class="control-label">驾照：</label>
 			<div class="controls">
-				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="driverLicense" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">查询码：</label>
 			<div class="controls">
-				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">保单图片：</label>
+			<label class="control-label">交强险保单图片：</label>
 			<div class="controls">
 				<form:hidden id="pic" path="pic" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-				<sys:ckfinder input="pic" type="files" uploadPath="/zsys/zVehicleInsurance" selectMultiple="true"/>
+				<sys:ckfinder input="pic" type="images" uploadPath="/zsys/zVehicleInsurance" selectMultiple="true"/>
+			</div>
+			
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">商业险保单图片：</label>
+			<div class="controls">
+				<form:hidden id="pic1" path="pic1" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="pic1" type="images" uploadPath="/zsys/zVehicleInsurance" selectMultiple="true"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">承运人保单图片：</label>
+			<div class="controls">
+				<form:hidden id="pic2" path="pic2" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="pic2" type="images" uploadPath="/zsys/zVehicleInsurance" selectMultiple="true"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">办理日期：</label>
+			<div class="controls">
+				<input name="handleDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
+					value="<fmt:formatDate value="${zVehicleInsurance.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="form-actions">

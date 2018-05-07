@@ -243,7 +243,6 @@
     <function-signature>java.lang.String toJsonString(java.lang.Object)</function-signature>
     <example>${fns:toJson(object)}</example>  
   </function>
-  
   <!-- ProcessUtils -->
   <function>
     <description>获取流程节点对象列表</description>

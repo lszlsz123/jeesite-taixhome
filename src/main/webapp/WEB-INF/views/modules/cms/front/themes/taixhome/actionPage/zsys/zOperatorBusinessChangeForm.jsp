@@ -25,8 +25,8 @@
     <div class="mg_content">
         <div class="mg_title">
             <ul class="yl_chose">
-                <li class="mg">办理指南</li>
-                <li class="pp">办理进度</li>
+                <li id="liToggle1" class="mg">办理指南</li>
+                <li id="liToggle2" class="pp">办理进度</li>
             </ul>
         </div>
         <div class="mg_mb">
@@ -62,7 +62,7 @@
             	<form method="post" action="${ctx}/zsys/zOperatorBusinessChange/list">
 	                <div class="mg_search ov">
                     	<input type="text" id="vehicleNum" class="mg_search_1 lf" name="vehicleNum" placeholder="请输入您的车牌号进行查询" maxlength="7" value="${zOperatorBusinessChange.newVehicleNum}"/>
-                    	<input type="text" id="queryCode" class="mg_search_1 rt" name="queryCode" placeholder="请输入您的车架号码后四位" maxlength="7" value="${zOperatorBusinessChange.queryCode}"/>
+<%--                     	<input type="text" id="queryCode" class="mg_search_1 rt" name="queryCode" placeholder="请输入您的车架号码后四位" maxlength="7" value="${zOperatorBusinessChange.queryCode}"/> --%>
 	                    <button class="mg_search_btn1" onclick="submitSearchForm()">查询</button>
 	                </div>
             	</form>
@@ -169,15 +169,18 @@ function submitSearchForm(){
 		alert("车牌号必须符合规格");
 		return false;
 	}
-	if(queryCode.length<4){
-		alert("查询码必须为4位");
-		return false;
-	}
+// 	if(queryCode.length<4){
+// 		alert("查询码必须为4位");
+// 		return false;
+// 	}
 	
 }
 
 $(function(){  
 	var step = ${zOperatorBusinessChange.step};
+	if(!step){
+		step = null;
+	}
 	if(step){
 		for(var i =1; i<8; i++){
 			if(i<= step){
@@ -188,7 +191,11 @@ $(function(){
 			}
 		}
 	}
-});  
+}); 
+
+$(function(){
+	$("#liToggle2").click();
+});
 
 </script>
 </body>

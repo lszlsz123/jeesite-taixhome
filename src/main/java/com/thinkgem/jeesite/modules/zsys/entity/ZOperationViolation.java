@@ -33,6 +33,7 @@ public class ZOperationViolation extends DataEntity<ZOperationViolation> {
 	private Date endComplaintTime;		// 结束 投诉时间
 	private String frameNum; //车架号
 	private String queryCode;//查询码
+	private Date handleDate;
 	
 	public ZOperationViolation() {
 		super();
@@ -183,6 +184,16 @@ public class ZOperationViolation extends DataEntity<ZOperationViolation> {
 	public void setQueryCode(String queryCode) {
 		this.queryCode = queryCode;
 	}
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	public Date getHandleDate() {
+		return handleDate;
+	}
+
+	public void setHandleDate(Date handleDate) {
+		this.handleDate = handleDate;
+	}
+	
 	
 	
 		

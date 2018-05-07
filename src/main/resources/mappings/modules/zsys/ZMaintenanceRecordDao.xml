@@ -20,7 +20,9 @@
 		a.inspection_time AS "inspectionTime",
 		a.mark AS "mark",
 		a.driver_license AS "driverLicense",
-		a.query_code AS "queryCode"
+		a.query_code AS "queryCode",
+		a.frame_num as "frameNum",
+		a.inspection_date as "inspectionDate"
 	</sql>
 	
 	<sql id="zMaintenanceRecordJoins">
@@ -100,7 +102,7 @@
 	<insert id="insert">
 		INSERT INTO z_maintenance_record(
 			id,
-			create_by,
+			create_by,	
 			update_by,
 			del_flag,
 			create_date,
@@ -116,7 +118,9 @@
 			inspection_time,
 			mark,
 			driver_license,
-			query_code
+			query_code,
+			frame_num,
+			inspection_date
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -135,7 +139,9 @@
 			#{inspectionTime},
 			#{mark},
 			#{driverLicense},
-			#{queryCode}
+			#{queryCode},
+			#{frameNum},
+			#{inspectionDate}
 		)
 	</insert>
 	
@@ -154,7 +160,9 @@
 			inspection_time = #{inspectionTime},
 			mark = #{mark},
 			driver_license = #{driverLicense},
-			query_code = #{queryCode}
+			query_code = #{queryCode},
+			frame_num = #{frameNum},
+			inspection_date = #{inspectionDate}
 		WHERE id = #{id}
 	</update>
 	

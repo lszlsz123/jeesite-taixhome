@@ -43,12 +43,43 @@ public class ZInsuranceClaimSettlement extends DataEntity<ZInsuranceClaimSettlem
 	private Date beginClosingDate;		// 开始 结案日期
 	private Date endClosingDate;		// 结束 结案日期
 	
+	private String frameNum;
+	private String level;
+	private Date handleDate;
+	
 	public ZInsuranceClaimSettlement() {
 		super();
 	}
 
 	public ZInsuranceClaimSettlement(String id){
 		super(id);
+	}
+
+	
+	@Length(min=0, max=50, message="车架号长度必须介于 0 和 50 之间")
+	public String getFrameNum() {
+		return frameNum;
+	}
+
+	public void setFrameNum(String frameNum) {
+		this.frameNum = frameNum;
+	}
+	@Length(min=0, max=50, message="事故等级长度必须介于 0 和 50 之间")
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	public Date getHandleDate() {
+		return handleDate;
+	}
+
+	public void setHandleDate(Date handleDate) {
+		this.handleDate = handleDate;
 	}
 
 	@Length(min=0, max=50, message="事故编号长度必须介于 0 和 50 之间")

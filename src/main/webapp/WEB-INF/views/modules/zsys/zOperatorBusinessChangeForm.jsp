@@ -54,19 +54,19 @@
 		<div class="control-group">
 			<label class="control-label">新车牌号：</label>
 			<div class="controls">
-				<form:input path="newVehicleNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="newVehicleNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">姓名：</label>
 			<div class="controls">
-				<form:input path="name" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="name" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">身份证号：</label>
 			<div class="controls">
-				<form:input path="idCard" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="idCard" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -100,7 +100,7 @@
 		<div class="control-group">
 			<label class="control-label">电话：</label>
 			<div class="controls">
-				<form:input path="phoneNum" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="phoneNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -120,7 +120,21 @@
 		<div class="control-group">
 			<label class="control-label">查询号码：</label>
 			<div class="controls">
-				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="queryCode" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">车架号码：</label>
+			<div class="controls">
+				<form:input path="frameNum" htmlEscape="false" maxlength="50" class="required input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">办理日期：</label>
+			<div class="controls">
+				<input name="handleDate" type="text" readonly="readonly" maxlength="20" class="required input-medium Wdate "
+					value="<fmt:formatDate value="${zOperatorBusinessChange.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">

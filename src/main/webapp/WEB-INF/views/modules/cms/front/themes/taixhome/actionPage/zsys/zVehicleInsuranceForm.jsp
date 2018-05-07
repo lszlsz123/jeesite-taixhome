@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
+<%@ include file="/WEB-INF/views/modules/cms/front/include/keyboard.jsp"%>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -170,7 +171,13 @@
           </li>
           <li class="ri_page_ggys">发布时间：<fmt:formatDate value="${zVehicleInsurance.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/> &nbsp; 更新时间：<fmt:formatDate value="${zVehicleInsurance.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
 		  <li class="ri_page_ggys">
-				<img src="../../../../${zVehicleInsurance.pic }">
+				<img id="pic" >
+          </li>
+          <li class="ri_page_ggys">
+				<img id="pic1" >
+          </li>
+          <li class="ri_page_ggys">
+				<img id="pic2" >
           </li>
         </ul>
       </div>
@@ -192,5 +199,15 @@
 </div>
 <script src="${ctxStatic}/taixhome/js/jquery-1.11.3.js"></script>
 <script src="${ctxStatic}/taixhome/js/index.js"></script>
+<script>
+var pic = '${zVehicleInsurance.pic}';
+var pic1 = '${zVehicleInsurance.pic1}';
+var pic2 = '${zVehicleInsurance.pic2}';
+$(function(){
+	$("#pic").attr("src",'${ctx}/zsys/ZPic/showPic?filePath='+escape(pic));
+	$("#pic1").attr("src",'${ctx}/zsys/ZPic/showPic?filePath='+escape(pic1));
+	$("#pic2").attr("src",'${ctx}/zsys/ZPic/showPic?filePath='+escape(pic2));
+})
+</script>
 </body>
 </html>

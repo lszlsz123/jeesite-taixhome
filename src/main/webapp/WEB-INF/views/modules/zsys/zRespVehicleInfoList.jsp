@@ -42,7 +42,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>更新日期</th>
+				<th>办理日期</th>
 				<th>备注信息</th>
 				<th>实际上线运营时间</th>
 				<th>营运证截止日期</th>
@@ -63,7 +63,7 @@
 		<c:forEach items="${page.list}" var="zRespVehicleInfo">
 			<tr>
 				<td><a href="${ctx}/zsys/zRespVehicleInfo/form?id=${zRespVehicleInfo.id}">
-					<fmt:formatDate value="${zRespVehicleInfo.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${zRespVehicleInfo.handleDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</a></td>
 				<td>
 					${zRespVehicleInfo.remarks}

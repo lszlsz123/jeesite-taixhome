@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZImportTableColumnDao">
+    
+	<sql id="zImportTableColumnColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.field_name AS "fieldName",
+		a.excel_column AS "excelColumn",
+		a.column_type AS "columnType",
+		a.db_column AS "dbColumn",
+		a.date_formatter AS "dateFormatter",
+		a.table_id AS "tableId",
+		a.table_name AS "tableName"
+	</sql>
+	
+	<sql id="zImportTableColumnJoins">
+	</sql>
+    
+	<select id="get" resultType="ZImportTableColumn">
+		SELECT 
+			<include refid="zImportTableColumnColumns"/>
+		FROM z_import_table_column a
+		<include refid="zImportTableColumnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZImportTableColumn">
+		SELECT 
+			<include refid="zImportTableColumnColumns"/>
+		FROM z_import_table_column a
+		<include refid="zImportTableColumnJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="fieldName != null and fieldName != ''">
+				AND a.field_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{fieldName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{fieldName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{fieldName},'%')</if>
+			</if>
+			<if test="dbColumn != null and dbColumn != ''">
+				AND a.db_column LIKE 
+					<if test="dbName == 'oracle'">'%'||#{dbColumn}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{dbColumn}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{dbColumn},'%')</if>
+			</if>
+			<if test="tableName != null and tableName != ''">
+				AND a.table_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tableName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tableName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tableName},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZImportTableColumn">
+		SELECT 
+			<include refid="zImportTableColumnColumns"/>
+		FROM z_import_table_column a
+		<include refid="zImportTableColumnJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_import_table_column(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			field_name,
+			excel_column,
+			column_type,
+			db_column,
+			date_formatter,
+			table_id,
+			table_name
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{fieldName},
+			#{excelColumn},
+			#{columnType},
+			#{dbColumn},
+			#{dateFormatter},
+			#{tableId},
+			#{tableName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_import_table_column SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			field_name = #{fieldName},
+			excel_column = #{excelColumn},
+			column_type = #{columnType},
+			db_column = #{dbColumn},
+			date_formatter = #{dateFormatter},
+			table_id = #{tableId},
+			table_name = #{tableName}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_import_table_column SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

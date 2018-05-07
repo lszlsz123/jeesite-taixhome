@@ -36,12 +36,42 @@ public class ZLitigation extends DataEntity<ZLitigation> {
 	private Date beginLitTime;		// 开始 诉讼时间
 	private Date endLitTime;		// 结束 诉讼时间
 	
+	private String frameNum;
+	private String judgmentNum;
+	private Date handleDate;
+	
 	public ZLitigation() {
 		super();
 	}
 
 	public ZLitigation(String id){
 		super(id);
+	}
+
+	
+	@Length(min=0, max=50, message="车架号长度必须介于 0 和 50 之间")
+	public String getFrameNum() {
+		return frameNum;
+	}
+
+	public void setFrameNum(String frameNum) {
+		this.frameNum = frameNum;
+	}
+	@Length(min=0, max=50, message="判决编号长度必须介于 0 和 50 之间")
+	public String getJudgmentNum() {
+		return judgmentNum;
+	}
+
+	public void setJudgmentNum(String judgmentNum) {
+		this.judgmentNum = judgmentNum;
+	}
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	public Date getHandleDate() {
+		return handleDate;
+	}
+
+	public void setHandleDate(Date handleDate) {
+		this.handleDate = handleDate;
 	}
 
 	@Length(min=0, max=50, message="车号长度必须介于 0 和 50 之间")

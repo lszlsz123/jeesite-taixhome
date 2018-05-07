@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZStatisticsDao">
+    <resultMap id="resultHashMap"   type="HashMap">
+		<result property="key" column="sdate" />
+		<result property="value" column="countNum" />
+	</resultMap>
+	<resultMap id="ResultOfString" type="String">  
+	    <result column="countNum" property="countNum" jdbcType="VARCHAR" />  
+	</resultMap>  
+	<select id="statisticsData" resultMap="resultHashMap">  
+		select date_format(t.handle_date, '%Y-%m') sdate, count(*) as countNum from ${searchTableName} t group by sdate
+	</select>
+	
+	<select id="statisticsData1" resultMap="resultHashMap">  
+		select date_format(t.create_date, '%Y-%m') sdate, count(*) as countNum from ${searchTableName} t where ${whereCondition} group by sdate
+	</select>
+	
+	<select id="statisticsCount" resultMap="ResultOfString">
+		${SQL}
+	</select>
+	
+	<select id="getDateAndVehicle" resultMap="resultHashMap">
+		${SQL}
+	</select>
+	
+	<select id="getVehicleNum" resultMap="ResultOfString">
+		${SQL}
+	</select>
+	
+</mapper>

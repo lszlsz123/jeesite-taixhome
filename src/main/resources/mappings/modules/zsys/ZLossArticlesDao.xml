@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zsys.dao.ZLossArticlesDao">
+    
+	<sql id="zLossArticlesColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.reg_date AS "regDate",
+		a.vehicle_num AS "vehicleNum",
+		a.name AS "name",
+		a.lost_content AS "lostContent",
+		a.ride_time AS "rideTime",
+		a.borading_location AS "boradingLocation",
+		a.drop_off_point AS "dropOffPoint",
+		a.owner_name AS "ownerName",
+		a.contact_phone AS "contactPhone"
+	</sql>
+	
+	<sql id="zLossArticlesJoins">
+	</sql>
+    
+	<select id="get" resultType="ZLossArticles">
+		SELECT 
+			<include refid="zLossArticlesColumns"/>
+		FROM z_loss_articles a
+		<include refid="zLossArticlesJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZLossArticles">
+		SELECT 
+			<include refid="zLossArticlesColumns"/>
+		FROM z_loss_articles a
+		<include refid="zLossArticlesJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="vehicleNum != null and vehicleNum != ''">
+				AND a.vehicle_num LIKE 
+					<if test="dbName == 'oracle'">'%'||#{vehicleNum}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{vehicleNum}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{vehicleNum},'%')</if>
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZLossArticles">
+		SELECT 
+			<include refid="zLossArticlesColumns"/>
+		FROM z_loss_articles a
+		<include refid="zLossArticlesJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO z_loss_articles(
+			id,
+			create_by,
+			update_by,
+			del_flag,
+			create_date,
+			update_date,
+			remarks,
+			reg_date,
+			vehicle_num,
+			name,
+			lost_content,
+			ride_time,
+			borading_location,
+			drop_off_point,
+			owner_name,
+			contact_phone
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{createDate},
+			#{updateDate},
+			#{remarks},
+			#{regDate},
+			#{vehicleNum},
+			#{name},
+			#{lostContent},
+			#{rideTime},
+			#{boradingLocation},
+			#{dropOffPoint},
+			#{ownerName},
+			#{contactPhone}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE z_loss_articles SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			reg_date = #{regDate},
+			vehicle_num = #{vehicleNum},
+			name = #{name},
+			lost_content = #{lostContent},
+			ride_time = #{rideTime},
+			borading_location = #{boradingLocation},
+			drop_off_point = #{dropOffPoint},
+			owner_name = #{ownerName},
+			contact_phone = #{contactPhone}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE z_loss_articles SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

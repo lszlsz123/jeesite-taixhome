@@ -19,4 +19,8 @@ import com.thinkgem.jeesite.modules.zsys.entity.ZOperatorBusinessChange;
 public interface ZOperatorBusinessChangeDao extends CrudDao<ZOperatorBusinessChange> {
 	
 	public List<Map<String,Object>> statisticsOperationBusinessChange();
+	
+	public List<ZOperatorBusinessChange> findFrontList(ZOperatorBusinessChange entity);
+	
+	
 }
